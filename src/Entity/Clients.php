@@ -2,12 +2,29 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientsRepository")
+ * @ApiResource(
+ *    subresourceOperations={
+ *    "invoices_get_subresource"={"path"="/clients/{id}/factures"}
+ *    },
+ *    normalizationContext={
+ *         "groups"={"clients_read"}
+ *    }
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"firstName":"partial", "lastName", "note"})
+ * @ApiFilter(OrderFilter::class)
  */
 class Clients
 {
@@ -15,72 +32,115 @@ class Clients
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"clients_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $numberPhone;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"clients_read"})
      */
     private $adressNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $adressName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $adressCity;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"clients_read"})
      */
     private $zipCode;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"clients_read"})
      */
     private $securitySocialNumber;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"clients_read"})
      */
     private $note;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="client")
+     * @Groups({"clients_read", "invoices_subresource"})
+     * @ApiSubresource
      */
     private $invoices;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="customers")
+     * @Groups({"clients_read"})
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Diary", mappedBy="clients")
+     * @Groups({"clients_read"})
+     */
+    private $diaries;
 
     public function __construct()
     {
         $this->invoices = new ArrayCollection();
+        $this->diaries = new ArrayCollection();
+    }
+    
+    /**
+     * Permet de récupérer le total des factures
+     *@Groups({"clients_read"})
+     * @return float
+     */
+    public function getTotalAmount(): float {
+        return array_reduce($this->invoices->toArray(), function($total, $invoice) {
+            return $total + $invoice->getAmount();
+        }, 1);
+    }
+    
+    /**
+     * Récupérer le montant total non payé (montant total hors factures payées ou annulées)
+     * @Groups({"clients_read"})
+     * @return float
+     */
+    public function getUnpaidAmount(): float {
+        return array_reduce($this->invoices->toArray(), function($total, $invoice) {
+            return $total + ($invoice->getStatus() === "PAID" || $invoice->getStatus() === "CANCELED" ? 0 : $invoice->getAmount());
+        }, 0);
     }
 
     public function getId(): ?int
@@ -247,6 +307,37 @@ class Clients
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Diary[]
+     */
+    public function getDiaries(): Collection
+    {
+        return $this->diaries;
+    }
+
+    public function addDiary(Diary $diary): self
+    {
+        if (!$this->diaries->contains($diary)) {
+            $this->diaries[] = $diary;
+            $diary->setClients($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiary(Diary $diary): self
+    {
+        if ($this->diaries->contains($diary)) {
+            $this->diaries->removeElement($diary);
+            // set the owning side to null (unless already changed)
+            if ($diary->getClients() === $this) {
+                $diary->setClients(null);
+            }
+        }
 
         return $this;
     }

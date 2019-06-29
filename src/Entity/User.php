@@ -2,13 +2,22 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"user_read"}
+ *      })
+ * @UniqueEntity("email", message="Un utilisateur ayant cette adresse email existe déjà")
  */
 class User implements UserInterface
 {
@@ -16,43 +25,74 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_read"})
+     * @Assert\NotBlank(message="L'email doit être renseigné !")
+     * @Assert\Email(message="L'email doit être valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user_read"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user_read"})
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_read"})
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\Length(
+     *      min=3, 
+     *      minMessage="Le prénom doit faire entre 3 et 255 caractères", 
+     *      max=255, 
+     *      maxMessage="Le prénom doit faire entre 3 et 255 caractères"
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_read"})
+     * @Assert\NotBlank(message="Le nom de famille est obligatoire")
+     * @Assert\Length(
+     *      min=3, 
+     *      minMessage="Le nom de famille doit faire entre 3 et 255 caractères", 
+     *      max=255, 
+     *      maxMessage="Le nom de famille doit faire entre 3 et 255 caractères"
+     * )
      */
     private $lastName;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Clients", mappedBy="user")
+     * @Groups({"user_read"})
      */
     private $customers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Diary", mappedBy="users")
+     * @Groups({"user_read"})
+     */
+    private $diaries;
 
     public function __construct()
     {
         $this->customers = new ArrayCollection();
+        $this->diaries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,6 +222,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($customer->getUser() === $this) {
                 $customer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Diary[]
+     */
+    public function getDiaries(): Collection
+    {
+        return $this->diaries;
+    }
+
+    public function addDiary(Diary $diary): self
+    {
+        if (!$this->diaries->contains($diary)) {
+            $this->diaries[] = $diary;
+            $diary->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiary(Diary $diary): self
+    {
+        if ($this->diaries->contains($diary)) {
+            $this->diaries->removeElement($diary);
+            // set the owning side to null (unless already changed)
+            if ($diary->getUsers() === $this) {
+                $diary->setUsers(null);
             }
         }
 

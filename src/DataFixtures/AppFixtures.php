@@ -11,6 +11,7 @@ use App\Entity\Invoice;
 use App\Entity\User;
 use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\Constructor;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\Diary;
 
 class AppFixtures extends Fixture
 {
@@ -30,15 +31,12 @@ class AppFixtures extends Fixture
     {
         $faker = FakerFactory::create('fr_FR');
 
-        
-
         for($u = 0; $u < 10; $u++) {
-
             $user = new User();
 
             $chrono = 1;
 
-            $hash = $this->encoder->encodePassword( $user, "password");
+            $hash = $this->encoder->encodePassword($user, "password");
 
             $user->setFirstName($faker->firstName())
                  ->setLastName($faker->lastName)
@@ -62,6 +60,18 @@ class AppFixtures extends Fixture
                     ->setUser($user);
 
                 $manager->persist($clients);
+
+                for($d = 0; $d < mt_rand(2, 10); $d++) {
+                    $diary = new Diary();
+                    $diary->setDate($faker->dateTimeAD($max = 'now', $timezone = null))
+                        ->setStartSession($faker->dateTimeBetween('-1 years' , 'now', $timezone = null))
+                        ->setEndSession($faker->dateTime($max = 'now', $timezone = null))
+                        ->setClients($clients)
+                        ->setUsers($user);
+                    
+                    $manager->persist($diary);
+
+                }
     
                 for($i = 0; $i < mt_rand(2, 5); $i++) {
                     $invoice = new Invoice();
@@ -77,9 +87,7 @@ class AppFixtures extends Fixture
                 }
             }
         }
-
         
-
         $manager->flush();
     }
 }
