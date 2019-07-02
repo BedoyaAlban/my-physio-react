@@ -38,13 +38,13 @@ class Clients
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"clients_read"})
+     * @Groups({"clients_read", "invoices_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"clients_read"})
+     * @Groups({"clients_read", "invoices_read"})
      */
     private $lastName;
 
