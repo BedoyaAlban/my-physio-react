@@ -25,7 +25,7 @@ const Navbar = (props) => {
             </ul>
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <a href="#" className="btn btn-outline-warning">Inscription</a>
+                    <a href="/#/login" className="btn btn-outline-warning">Inscription</a>
                 </li>
                 <li className="nav-item">
                     <a href="#" className="btn btn-success">Connexion</a>

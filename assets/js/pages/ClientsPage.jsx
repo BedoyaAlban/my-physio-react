@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from "../components/Pagination";
 import ClientsAPI from "../services/clientsAPI";
-import { async } from 'q';
+
 
 
 const ClientsPage = props => {

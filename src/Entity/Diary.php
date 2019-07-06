@@ -29,7 +29,7 @@ class Diary
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"diaries_read", "invoices_read"})
+     * @Groups({"diaries_read", "invoices_read", "clients_read"})
      */
     private $date;
 

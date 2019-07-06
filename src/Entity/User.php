@@ -25,7 +25,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "clients_read"})
      */
     private $id;
 
@@ -52,7 +52,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "clients_read"})
      * @Assert\NotBlank(message="Le prénom est obligatoire")
      * @Assert\Length(
      *      min=3, 
@@ -65,7 +65,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "clients_read"})
      * @Assert\NotBlank(message="Le nom de famille est obligatoire")
      * @Assert\Length(
      *      min=3, 

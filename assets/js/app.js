@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import { HashRouter, Switch, Route } from "react-router-dom";
 import ClientsPage from './pages/ClientsPage';
 import InvoicesPage from './pages/InvoicesPage';
+import LoginPage from './pages/LoginPage';
 
 
 /*
@@ -28,6 +29,7 @@ const App = () => {
 
        <main className="container pt-5">
            <Switch>
+               <Route path="/login" component={LoginPage} />
                <Route path="/factures" component={InvoicesPage} />
                <Route path="/clients" component={ClientsPage} />
                <Route path="/" component={HomePage} />
