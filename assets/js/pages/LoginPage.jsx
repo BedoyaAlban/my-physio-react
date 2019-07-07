@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
-import axios from "axios";
-import ClientsAPI from '../services/clientsAPI';
+import React, { useContext, useState } from 'react';
+import AuthContext from '../contexts/AuthContext';
+import AuthAPI from '../services/authAPI';
 
-const LoginPage = (props) => {
+
+const LoginPage = ({ history }) => {
+
+    const { setIsAuthenticated } = useContext(AuthContext);
 
     const [credentials, setCredentials] = useState({
         username: "",
@@ -11,34 +14,27 @@ const LoginPage = (props) => {
 
     const  [error, setError] = useState("");
 
-    const handleChange = (event) => {
-        const value =event.currentTarget.value;
-        const name = event.currentTarget.name;
+    //Gestion des champs
+    const handleChange = ({currentTarget}) => {
+        const {value, name} = currentTarget;
 
         setCredentials({...credentials, [name]: value});
     };
 
+    //Gestion du submit
     const handleSubmit = async event => {
         event.preventDefault();
 
-        try { 
-           const token = await axios
-            .post("http://127.0.0.1:8000/api/login_check", credentials)
-            .then(response => response.data.token);
-
+        try {
+            await AuthAPI.authenticate(credentials);
             setError("");
-            //Stockage du token dans le localeStrorage
-            window.localStorage.setItem("authToken", token);
-            // On prévient axios qu'on a maintenant un header par défaut sur toutes nos futures requetes HTTP
-            axios.defaults.headers["Authorization"] = "Bearer " + token;
-
-            const data = await ClientsAPI.findAll();
-            console.log(data);
+            setIsAuthenticated(true); 
+            history.replace("/clients");
         } catch(error) {
-            setError("Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas !");
+            setError(
+                "Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas !"
+            );
         }
-
-        console.log(credentials);
     };
 
     return ( 
