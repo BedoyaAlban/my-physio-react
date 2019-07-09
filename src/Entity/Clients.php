@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
@@ -32,61 +33,70 @@ class Clients
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"clients_read"})
+     * @Groups({"clients_read", "invoices_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read", "invoices_read"})
+     * @Assert\NotBlank(message="Le prénom du client doit être renseigné")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read", "invoices_read"})
+     * @Assert\NotBlank(message="Le nom de famille du client doit être renseigné")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="L'email du client doit être renseigné")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="Le numéro de téléphone du client doit être renseigné")
      */
     private $numberPhone;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="L'adresse du client doit être renseigné")
      */
     private $adressNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="L'adresse du client doit être renseigné")
      */
     private $adressName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="La ville du client doit être renseigné")
      */
     private $adressCity;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="Le code postal du client doit être renseigné")
      */
     private $zipCode;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Groups({"clients_read"})
+     * @Assert\NotBlank(message="Le numéro de sécurité sociale du client doit être renseigné")
      */
     private $securitySocialNumber;
 

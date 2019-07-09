@@ -7,9 +7,12 @@ import AuthAPI from '../js/services/authAPI';
 import Navbar from './components/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 import ClientsPage from './pages/ClientsPage';
+import ClientPage from './pages/ClientPage';
 import HomePage from './pages/HomePage';
 import InvoicesPage from './pages/InvoicesPage';
+import InvoicePage from './pages/InvoicePage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 
 
@@ -35,8 +38,11 @@ const App = () => {
                     <main className="container pt-5">
                         <Switch>
                             <Route path="/login" component={LoginPage} /> 
+                            <Route path="/register" component={RegisterPage} />
+                            <PrivateRoute path="/clients/:id" component={ClientPage} />
                             <PrivateRoute path="/clients" component={ClientsPage} />
                             <PrivateRoute path="/diary" component={DiaryPage} />
+                            <PrivateRoute path="/factures/:id" component={InvoicePage} />
                             <PrivateRoute path="/factures" component={InvoicesPage} />
                             <Route path="/" component={HomePage} />
                         </Switch>

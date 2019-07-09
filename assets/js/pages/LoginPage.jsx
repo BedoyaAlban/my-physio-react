@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../contexts/AuthContext';
 import AuthAPI from '../services/authAPI';
+import Field from '../components/fomrs/Field';
 
 
 const LoginPage = ({ history }) => {
@@ -42,31 +43,24 @@ const LoginPage = ({ history }) => {
         <h1>Connexion à l'application</h1>
 
         <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label htmlFor="username">Adresse email</label>
-                <input 
-                    value={credentials.username}
-                    onChange={handleChange}
-                    type="email" 
-                    className={"form-control" + (error && " is-invalid")} 
-                    id="username"
-                    name="username"  
-                    placeholder="Adresse email de connexion" 
-                />
-                {error && <p className="invalid-feedback">{error}</p>}
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input 
-                    value={credentials.password}
-                    onChange={handleChange}
-                    type="password" 
-                    className="form-control" 
-                    id="password"
-                    name="password"
-                    placeholder="Mot de passe"
-                />
-            </div>
+            <Field 
+                label="Adresse email" 
+                name="username" 
+                type="email"
+                value={credentials.username} 
+                onChange={handleChange} 
+                placeholder="Adresse email de connexion" 
+                error={error} 
+            />
+            <Field 
+                label="Mot de passe"
+                name="password"
+                value={credentials.password}
+                onChange={handleChange}
+                placeholder="Mot de passe"
+                type="password"  
+                error=""
+            />
             <button type="submit" className="btn btn-primary">Se Connecter</button>
         </form>
     </> 

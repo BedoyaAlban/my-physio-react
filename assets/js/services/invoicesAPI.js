@@ -11,7 +11,29 @@ function deleteInvoice(id) {
     .delete("http://127.0.0.1:8000/api/invoices/" + id);
 }
 
+function find(id) {
+    return axios
+            .get("http://127.0.0.1:8000/api/invoices/" + id)
+            .then(response => response.data);
+}
+
+function update(id, invoice) {
+    return axios
+        .put("http://127.0.0.1:8000/api/invoices/" + id,
+             { ...invoice, client: `/api/clients/${invoice.client}`}
+        );
+}
+
+function create(invoice) {
+    return axios
+            .post("http://127.0.0.1:8000/api/invoices",
+            {...invoice, client: `/api/clients/${invoice.client}`});
+}
+
 export default {
     findAll,
+    find,
+    update,
+    create,
     delete: deleteInvoice
 };

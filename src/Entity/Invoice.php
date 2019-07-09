@@ -58,7 +58,7 @@ class Invoice
      * @ORM\Column(type="string", length=255)
      * @Groups({"invoices_read", "invoices_subresource", "clients_read"})
      * @Assert\NotBlank(message="Le statut de la facture est obligatoire")
-     * @Assert\Choice(choices={"SENT", "PAID", "CANCELLED"}, message="Le statut doit être SENT, PAID ou CANCELLED")
+     * @Assert\Choice(choices={"INVOICED", "PAID", "CANCELLED"}, message="Le statut doit être INVOICED, PAID ou CANCELLED")
      */
     private $status;
 
