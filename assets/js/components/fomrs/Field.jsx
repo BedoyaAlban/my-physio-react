@@ -20,6 +20,7 @@ const Field = ({
             name={name} 
             placeholder={placeholder}
         />
+        <small className="form-text text-muted">˚Champ obligatoire</small>
         {error && <p className="invalid-feedback">{error}</p>}
     </div> 
 );

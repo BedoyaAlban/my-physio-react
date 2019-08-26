@@ -1,0 +1,45 @@
+
+#appointements{
+    margin: 6px;
+    padding-top: 50px;
+}
+
+#table-invoices {
+    margin-top: 40px;
+}
+
+label  {
+    float: left;
+}
+
+.form-text.text-muted {
+    float: left;
+}
+
+.form-group {
+    margin-bottom: 3rem;
+}
+
+#button-popover {
+    position: relative;
+}
+
+#arrow-register {
+    top: 83px;
+    left: 41px;
+}
+
+div#popover669561.popover.fade.bs-popover-top.show {
+    width: 215px;
+    top: -95px;
+    left: 0px;
+    opacity: 0;
+}
+
+div#button-popover:hover div#popover669561.popover.fade.bs-popover-top.show {
+    opacity: 1;
+}
+
+#hidden {
+    display: none;
+}

@@ -1,0 +1,27 @@
+.card.text-white {
+    max-width: 20rem;
+    margin-left: 40px;
+}
+
+#container {
+    position: relative;
+}
+
+.row {
+    text-align: center;
+    margin: auto;
+}
+
+#doughnut-invoices {
+    text-align: center;
+}
+
+#bar-invoices {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#horizontal-bar-invoices {
+    text-align: center;
+    margin-top: 30px;
+}

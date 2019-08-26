@@ -1,0 +1,35 @@
+.row {
+    position: relative;
+}
+
+button.btn.btn-primary#export {
+    position: absolute;
+    line-height: 1;
+    right: 0;
+}
+
+div#pagination {
+    width: 30%
+}
+
+div#export-invoices {
+    width: 70%;
+    position: relative;
+}
+
+div.arrow#popover-export {
+    bottom: -9px;
+    left: 55px;
+}
+
+div#popover226302.popover.fade.show.bs-popover-top {
+    right: 0;
+    top: -93px;
+    max-width: 139px;
+    left: unset;
+    display: none;
+}
+
+button#export.btn.btn-primary:hover div#popover226302.popover.fade.show.bs-popover-top {
+    opacity: 1;
+}

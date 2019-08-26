@@ -4,10 +4,8 @@ namespace App\Entity;
 
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,14 +17,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 *          }
 *      },
 *      attributes={
-*          "order": {"sentAt":"desc"}
+*          "order": {"chrono":"desc"}
 *      },
 *      normalizationContext={
 *          "groups"={"invoices_read"}
 *      },
 *      denormalizationContext={"disable_type_enforcement"=true}
 * )
-* @ApiFilter(OrderFilter::class, properties={"amount","sentAt"})
 */
 class Invoice
 {
@@ -34,7 +31,7 @@ class Invoice
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"invoices_read", "invoices_subresource"})
+     * @Groups({"invoices_read", "invoices_subresource", "clients_read"})
      */
     private $id;
 
@@ -72,7 +69,7 @@ class Invoice
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"invoices_read", "invoices_subresource"})
+     * @Groups({"invoices_read", "invoices_subresource", "clients_read"})
      * @Assert\NotBlank(message="Il faut absolument un chrono pour la facture")
      * @Assert\Type(type="integer", message="Le chrono doit être un nombre !")
      */

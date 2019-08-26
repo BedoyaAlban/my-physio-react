@@ -1,0 +1,106 @@
+div#modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 11; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+div#modal2{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 11; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+div#modal3{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 11; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+div#modale form#submit-client-for-rdv{
+    width: 300px;
+    margin: auto;
+}
+
+h5#info{
+    margin: auto;
+    width: max-content;
+}
+
+div#popover635692{
+    width: 150px;
+    position: absolute;
+    left: -200px;
+    top: -20px;
+    z-index: 1060;
+    border-radius: 0.25rem;
+    border-color: #4582EC !important;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1.25rem;
+}
+
+#store {
+    display: none;
+}
+
+
+#popover635692 > .arrow {
+    right: calc((0.5rem + 1px) * -1);
+    width: 0.5rem;
+    height: 1rem;
+    margin: 0.3rem 0;
+}
+
+i.fa.fa-caret-right.fa-2x {
+    color: #4582EC !important;
+    position: absolute;
+    left: 0px;
+}
+
+h4.card-title {
+    color: #343a40;
+}
+
+p.card-text {
+    color: #343a40;
+}
+
+.alert-info {
+    background-color: rgba(179, 230, 255, 0.555) !important;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+td:hover {
+    cursor: pointer;
+}
+
+
+
+ 

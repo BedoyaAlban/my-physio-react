@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Pagination from "../components/Pagination";
 import ClientsAPI from "../services/clientsAPI";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+import '../../css/clientspage.css';
+import ExportClients from '../components/ExportClients';
+import TableLoader from '../components/laoders/TableLoader';
 
 
 
@@ -10,16 +14,20 @@ const ClientsPage = props => {
     const [clients, setClients] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
-
+    const [loading, setLoading] = useState(true);
+    
     // Permet de récupérer les clients
     const fetchClients = async () => {
         try {
             const data = await ClientsAPI.findAll();
             setClients(data);
+            setLoading(false);
         } catch {
-            console.log(error.response);
+            toast.error("Impossible de charger les clients");
         }
     };
+
+    
 
     // Au chargement du composant, on va chercher les clients 
     useEffect(() => {
@@ -33,9 +41,11 @@ const ClientsPage = props => {
         setClients(clients.filter(clients => clients.id !== id))
 
         try {
-            await ClientsAPI.delete(id)
+            await ClientsAPI.delete(id);
+            toast.success("Le client a bien été supprimé");
         } catch(error) {
             setClients(originalClients);
+            toast.error("La suppression du client n'a pas pu fonctionner");
         }
 
         //ClientsAPI.delete(id)
@@ -62,9 +72,10 @@ const ClientsPage = props => {
         c =>
             c.firstName.toLowerCase().includes(search.toLowerCase()) ||
             c.lastName.toLowerCase().includes(search.toLowerCase()) ||
-            c.email.toLowerCase().includes(search.toLowerCase())
+            c.email.toLowerCase().includes(search.toLowerCase()) || c.totalAmount.toString().includes(search.toLowerCase()) 
     );
 
+    
     //Pagination des données
     const paginatedClients = Pagination.getData(
         filteredClients, 
@@ -72,6 +83,17 @@ const ClientsPage = props => {
         itemsPerPage
     );
 
+
+    const popover = () => {
+        var popover = document.getElementById("popover226303");
+        popover.style.display = "block";
+    };
+
+    const hidePopover = () => {
+        var popover = document.getElementById("popover226303");
+        popover.style.display = "none";
+    }
+       
     return (
         <>
             <div className="d-flex justify-content-between align-items-center">
@@ -85,53 +107,69 @@ const ClientsPage = props => {
                     onChange={handleSearch} 
                     value={search} 
                     className="form-control" 
-                    placeholder="Rechercher ..."
+                    placeholder="Rechercher par Client, Email, Montant Total"
                 />
             </div>
 
             <table className="table table-hover">
                 <thead>
                     <tr>
-                        <th>Id.</th>
-                        <th>Client</th>
-                        <th>Email</th>
+                        <th className="text-center">Client</th>
+                        <th className="text-center">Email</th>
                         <th className="text-center">Factures</th>
                         <th className="text-center">Montant total</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                {!loading && (<tbody>
                     {paginatedClients.map(clients => 
                         <tr key={clients.id}>
-                        <td>{clients.id}</td>
-                        <td>
-                            <a href="#">{clients.firstName} {clients.lastName}</a>
-                        </td>
-                        <td>{clients.email}</td>
                         <td className="text-center">
+                            <Link to={"/clients/" + clients.id}>
+                                {clients.firstName} {clients.lastName}
+                            </Link>
+                        </td>
+                        <td className="text-center">{clients.email}</td>
+                        <td className="text-center">
+    
                             <span className="badge badge-primary">{clients.invoices.length}</span>
                         </td>
                         <td className="text-center">{clients.totalAmount.toLocaleString()}€</td>
-                        <td>
+                        <td className="text-center" id="td-button">
                             <button 
                                 onClick={() => handleDelete(clients.id)}
                                 disabled={clients.invoices.length > 0}
                                 className="btn btn-sm btn-danger">Supprimer
                             </button>
+                            <div className="popover fade show bs-popover-right" role="tooltip" id={(clients.invoices.length > 0 && "popover468793" || "hidden")}>
+                                    <div id="arrow-client" className="arrow"></div>
+                                    <div className="popover-body">Un client possédant des factures ne peut pas être supprimé.</div>
+                                </div>
                         </td>
                         <td></td>
-                    </tr> )}
-                    
-                </tbody>
+                    </tr> )}    
+                </tbody>)}
             </table>
-
-            {itemsPerPage < filteredClients.length && 
-                <Pagination 
-                    currentPage={currentPage} 
-                    itemsPerPage={itemsPerPage} 
-                    length={filteredClients.length} 
-                    onPageChanged={handlePageChange} 
-                />}
+            {loading && <TableLoader />} 
+            <div className="row">
+                {itemsPerPage < filteredClients.length && 
+                    <Pagination 
+                        currentPage={currentPage} 
+                        itemsPerPage={itemsPerPage} 
+                        length={filteredClients.length} 
+                        onPageChanged={handlePageChange} 
+                    />}
+                <div id="export-clients">
+                    <div id="button-export" onMouseOver={() => popover()} onMouseLeave={() => hidePopover()}>
+                        <ExportClients />
+                    </div>
+                    <div className="popover fade show bs-popover-top" role="tooltip" id="popover226303" x-placement="top">
+                        <div className="arrow" id="popover-export-clients"></div>
+                        <div className="popover-body">Exporter vos clients sous fichier Excel.</div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

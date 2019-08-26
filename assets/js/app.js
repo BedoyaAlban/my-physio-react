@@ -13,11 +13,14 @@ import InvoicesPage from './pages/InvoicesPage';
 import InvoicePage from './pages/InvoicePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
 // any CSS you require will output into a single css file (app.css in this case)
-require('../css/app.css');
+require('../css/bootstrap.min.css');
 
 AuthAPI.setup();
 
@@ -27,6 +30,8 @@ const App = () => {
         AuthAPI.isAuthenticated());
 
     const NavbarWithRouter = withRouter(Navbar);
+
+    
 
     return (<AuthContext.Provider value={{
                 isAuthenticated,
@@ -39,6 +44,7 @@ const App = () => {
                         <Switch>
                             <Route path="/login" component={LoginPage} /> 
                             <Route path="/register" component={RegisterPage} />
+                            <PrivateRoute path="/home" component={HomePage} />
                             <PrivateRoute path="/clients/:id" component={ClientPage} />
                             <PrivateRoute path="/clients" component={ClientsPage} />
                             <PrivateRoute path="/diary" component={DiaryPage} />
@@ -48,6 +54,7 @@ const App = () => {
                         </Switch>
                     </main>
                 </HashRouter>
+                <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
             </AuthContext.Provider>);
 };
 

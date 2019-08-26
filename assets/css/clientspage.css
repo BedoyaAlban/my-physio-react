@@ -1,0 +1,45 @@
+#arrow-client {
+    top: 4px;
+}
+
+div#export-clients {
+    width: 70%;
+    position: relative;
+}
+
+button#button-export-clients.btn.btn-primary {
+    position: absolute;
+    line-height: 1;
+    right: 0;
+}
+
+div#popover226303.popover.fade.show.bs-popover-top {
+    right: 0px;
+    top: -94px;
+    max-width: 139px;
+    left: unset;
+    display: none;
+}
+
+div#popover-export-clients.arrow {
+    bottom: -9px;
+    left: 55px;
+}
+
+td#td-button.text-center {
+    position: relative;
+}
+
+div#popover468793.popover.fade.show.bs-popover-right {
+    opacity: 0;
+    top: 6px;
+    left: 113px;
+}
+
+td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-right {
+    opacity: 1;
+}
+
+#hidden {
+    display: none;
+}

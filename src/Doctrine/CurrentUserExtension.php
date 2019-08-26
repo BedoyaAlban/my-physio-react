@@ -10,6 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInter
 use App\Entity\Clients;
 use App\Entity\Invoice;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use App\Entity\Diary;
 
 class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface {
 
@@ -27,9 +28,9 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
         $user = $this->security->getUser();
 
         if(($resourceClass === Clients::class || 
-            $resourceClass === Invoice::class) 
-            && !$this->auth->isGranted('ROLE_ADMIN')) {
-
+            $resourceClass === Invoice::class ) 
+            && !$this->auth->isGranted('SUPER_ROLE_ADMIN')) {
+    
                 $rootAlias = $queryBuilder->getRootAliases()[0];
 
                 if($resourceClass === Clients::class) {
@@ -41,6 +42,13 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
                                 ->andWhere("c.user = :user");
                 }
 
+            $queryBuilder->setParameter("user", $user);
+        } else if ($resourceClass === Diary::class) {
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+            
+            if($resourceClass === Diary::class) {
+                $queryBuilder->andWhere("$rootAlias.user = :user");
+            }
             $queryBuilder->setParameter("user", $user);
         }
     }

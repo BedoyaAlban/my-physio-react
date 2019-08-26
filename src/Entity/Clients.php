@@ -3,15 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 
 
 /**
@@ -24,8 +22,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "groups"={"clients_read"}
  *    }
  * )
- * @ApiFilter(SearchFilter::class, properties={"firstName":"partial", "lastName", "note"})
- * @ApiFilter(OrderFilter::class)
  */
 class Clients
 {
@@ -33,20 +29,20 @@ class Clients
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"clients_read", "invoices_read"})
+     * @Groups({"clients_read", "invoices_read", "diaries_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"clients_read", "invoices_read"})
+     * @Groups({"clients_read", "invoices_read", "diaries_read"})
      * @Assert\NotBlank(message="Le prénom du client doit être renseigné")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"clients_read", "invoices_read"})
+     * @Groups({"clients_read", "invoices_read", "diaries_read"})
      * @Assert\NotBlank(message="Le nom de famille du client doit être renseigné")
      */
     private $lastName;
@@ -66,9 +62,10 @@ class Clients
     private $numberPhone;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      * @Groups({"clients_read"})
      * @Assert\NotBlank(message="L'adresse du client doit être renseigné")
+     * @Assert\Type(type="numeric", message="Le numéro de la rue doit être un numérique !")
      */
     private $adressNumber;
 
@@ -94,15 +91,16 @@ class Clients
     private $zipCode;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      * @Groups({"clients_read"})
      * @Assert\NotBlank(message="Le numéro de sécurité sociale du client doit être renseigné")
+     * @Assert\Type(type="numeric", message="Le numéro de sécurité sociale doit être un numérique !")
      */
     private $securitySocialNumber;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"clients_read"})
+     * @Groups({"clients_read", "diaries_read"})
      */
     private $note;
 

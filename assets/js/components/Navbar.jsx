@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import AuthAPI from "../services/authAPI";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import { toast } from 'react-toastify';
 
 const Navbar = ({ history }) => {
 
@@ -10,39 +11,46 @@ const Navbar = ({ history }) => {
     const handleLogout = () => {
         AuthAPI.logout();
         setIsAuthenticated(false);
+        toast.info("Vous êtes désormais déconnecté!");
         history.push("/login");
     };
 
     return ( 
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/register">
             My-Physio
         </NavLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
         </button>
-  
-        <div className="collapse navbar-collapse" id="navbarColor01">
+       <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                </li>
-                <li className="nav-item">
+            {(isAuthenticated &&
+                (<li className="nav-item active">
+                    <NavLink className="nav-link" to="/home">
+                        Home
+                    </NavLink>
+                </li>))}
+                {(isAuthenticated &&
+                (<li className="nav-item">
                     <NavLink className="nav-link" to="/clients">
                         Clients
                     </NavLink>
-                </li>
-                <li className="nav-item">
+                </li>))}
+                {(isAuthenticated &&
+                (<li className="nav-item">
                     <NavLink className="nav-link" to="/diary">
                         Calendrier
                     </NavLink>
-                </li>
-                <li className="nav-item">
+                </li>))}
+                {(isAuthenticated &&
+                (<li className="nav-item">
                     <NavLink className="nav-link" to="/factures">
                         Factures
                     </NavLink>
-                </li>
+                </li>))}
             </ul>
+        
             <ul className="navbar-nav ml-auto">
                 {(!isAuthenticated && (
                     <>

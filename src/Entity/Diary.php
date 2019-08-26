@@ -35,7 +35,7 @@ class Diary
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"diaries_read"})
+     * @Groups({"diaries_read", "clients_read"})
      */
     private $startSession;
 
@@ -55,7 +55,8 @@ class Diary
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="diaries")
      * @Groups({"diaries_read"})
      */
-    private $users;
+    private $user;
+    
 
     public function getId(): ?int
     {
@@ -110,14 +111,14 @@ class Diary
         return $this;
     }
 
-    public function getUsers(): ?User
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?User $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
 
         return $this;
     }

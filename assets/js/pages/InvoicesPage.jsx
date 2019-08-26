@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Pagination from "../components/Pagination";
 import InvoicesAPI from "../services/invoicesAPI";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import ExportInvoices from "../components/ExportInvoices.js";
+import '../../css/invoicespage.css';
+import TableLoader from "../components/laoders/TableLoader";
 
 const STATUS_CLASSES = {
     PAID: "success",
@@ -16,21 +20,24 @@ const STATUS_LABELS = {
     CANCELLED: "Annulée"
 };
 
+
+
 const InvoicesPage = (props) => {
 
     const [invoices, setInvoices] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
     const itemsPerPage = 10;
+    const [loading, setLoading] = useState(true);
 
     //récupération des factures auprès de l'API
     const fetchInvoices = async () => {
         try {
             const data =  await InvoicesAPI.findAll();
             setInvoices(data);
+            setLoading(false);
         } catch (error) {
-            console.error(error.response);
-            
+            toast.error("Erreur lors du chargement des factures !");
         }
     };
 
@@ -56,8 +63,9 @@ const InvoicesPage = (props) => {
 
         try {
             await InvoicesAPI.delete(id);
+            toast.success("La facture a bien été supprimée");
         } catch (error) {
-            console.log(error.response);
+            toast.error("Une erreur est survenue !");
             setInvoices(originalInvoices);
         }
     };
@@ -70,9 +78,12 @@ const InvoicesPage = (props) => {
         i => 
             i.client.firstName.toLowerCase().includes(search.toLowerCase()) || 
             i.client.lastName.toLowerCase().includes(search.toLowerCase()) ||
-            i.amount.toString().includes(search.toLowerCase()) || STATUS_LABELS[i.status].toLowerCase().includes(search.toLowerCase())
+            i.amount.toString().includes(search.toLowerCase()) || 
+            STATUS_LABELS[i.status].toLowerCase().includes(search.toLowerCase()) ||
+            formatDate(i.sentAt).toString().includes(search) 
+            
     );
-
+    
     //Pagination des données
     const paginatedInvoices = Pagination.getData(
         filteredInvoices, 
@@ -80,11 +91,22 @@ const InvoicesPage = (props) => {
         itemsPerPage
     );
 
+    
+    const popover = () => {
+        var popover = document.getElementById("popover226302");
+        popover.style.display = "block";
+    };
+
+    const hidePopover = () => {
+        var popover = document.getElementById("popover226302");
+        popover.style.display = "none";
+    } 
+
     return ( 
     <>
         <div className="d-flex justify-content-between align-items-center">
             <h1>Liste des factures</h1>
-            <Link className="btn btn-primary" to="/factures/new">Créer un facture</Link>
+            <Link className="btn btn-primary" to="/factures/new">Créer une facture</Link>
         </div>
        
 
@@ -94,10 +116,9 @@ const InvoicesPage = (props) => {
                     onChange={handleSearch} 
                     value={search} 
                     className="form-control" 
-                    placeholder="Rechercher ..."
+                    placeholder="Rechercher par Numéro, Client, Date d'envoi, Statut, Montant "
                 />
         </div>
-        
         <table className="table table-hover">
             <thead>
                 <tr>
@@ -109,12 +130,14 @@ const InvoicesPage = (props) => {
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                {paginatedInvoices.map(invoice => 
+            {!loading && (<tbody>
+            {paginatedInvoices.map(invoice => 
                 <tr key={invoice.id}>
                     <td>{invoice.chrono}</td>
                     <td>
-                        <a href="#">{invoice.client.firstName} {invoice.client.lastName}</a>
+                        <Link to={"/clients/" + invoice.client.id}>
+                            {invoice.client.firstName} {invoice.client.lastName}
+                        </Link>
                     </td>
                     <td className="text-center">{formatDate(invoice.sentAt)}</td>
                     <td className="text-center">
@@ -134,17 +157,29 @@ const InvoicesPage = (props) => {
                             Supprimer
                         </button>
                     </td>
-                </tr>)}
-                
-            </tbody>
+                </tr> 
+                )}
+            </tbody>)}
         </table>
+        {loading && <TableLoader />}
+        <div className="row">
+            <Pagination 
+                currentPage={currentPage} 
+                itemsPerPage={itemsPerPage} 
+                onPageChanged={handlePageChange} 
+                length={filteredInvoices.length}
+            />
+            <div id="export-invoices">
+                <div id="button-export-invoices" onMouseOver={() => popover()} onMouseLeave={() => hidePopover()}>
+                    <ExportInvoices />
+                </div>
+                <div className="popover fade show bs-popover-top" role="tooltip" id="popover226302" x-placement="top">
+                    <div className="arrow" id="popover-export"></div>
+                    <div className="popover-body">Exporter vos factures sous fichier Excel.</div>
+                </div>
+            </div>
+        </div>
         
-        <Pagination 
-            currentPage={currentPage} 
-            itemsPerPage={itemsPerPage} 
-            onPageChanged={handlePageChange} 
-            length={filteredInvoices.length}
-        />
     </> 
     );
 }

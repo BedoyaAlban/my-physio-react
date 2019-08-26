@@ -1,8 +1,14 @@
 {
     "devDependencies": {
+        "@babel/core": "^7.5.4",
+        "@babel/plugin-proposal-class-properties": "^7.5.0",
         "@babel/preset-react": "^7.0.0",
         "@symfony/webpack-encore": "^0.27.0",
+        "babel-cli": "^6.26.0",
+        "babel-loader": "^8.0.6",
         "core-js": "^3.0.0",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^7.1.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -14,11 +20,34 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fullcalendar/bootstrap": "^4.2.0",
+        "@fullcalendar/core": "^4.2.0",
+        "@fullcalendar/daygrid": "^4.2.0",
+        "@fullcalendar/interaction": "^4.2.0",
+        "@fullcalendar/list": "^4.2.0",
+        "@fullcalendar/react": "^4.2.0",
+        "@fullcalendar/rrule": "^4.2.0",
+        "@fullcalendar/timegrid": "^4.2.0",
+        "@progress/kendo-react-excel-export": "^3.2.2",
         "axios": "^0.19.0",
+        "chart.js": "^2.8.0",
+        "file-saver": "^2.0.2",
+        "fs": "0.0.1-security",
         "jwt-decode": "^2.2.0",
         "moment": "^2.24.0",
         "react": "^16.8.6",
+        "react-big-calendar": "^0.22.0",
+        "react-chartjs-2": "^2.7.6",
+        "react-content-loader": "^4.2.2",
+        "react-data-export": "^0.5.0",
+        "react-datepicker": "^2.8.0",
+        "react-dnd": "^9.2.1",
+        "react-dnd-html5-backend": "^9.1.0",
         "react-dom": "^16.8.6",
-        "react-router-dom": "^5.0.0"
+        "react-export-excel": "^0.5.3",
+        "react-router-dom": "^5.0.0",
+        "react-toastify": "^5.3.1",
+        "rrule": "^2.6.2",
+        "xlsx": "^0.15.1"
     }
 }
