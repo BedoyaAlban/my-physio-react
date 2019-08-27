@@ -1,30 +1,31 @@
 import axios from "axios";
+import { CLIENTS_API } from '../config';
 
 function findAll() {
     return axios
-        .get("http://127.0.0.1:8000/api/clients")
+        .get( CLIENTS_API)
         .then(response => response.data['hydra:member']);
 }
 
 function find(id) {
     return axios
-        .get("http://127.0.0.1:8000/api/clients/" + id)
+        .get( CLIENTS_API + "/" + id)
         .then(response => response.data);
 }
 
 function update(id, client) {
     return axios
-        .put("http://127.0.0.1:8000/api/clients/" + id, client);
+        .put( CLIENTS_API + "/" + id, client);
 }
 
 function create(client) {
     return axios
-        .post("http://127.0.0.1:8000/api/clients", client);
+        .post(CLIENTS_API, client);
 }
 
 function deleteClient(id) {
         return axios
-        .delete("http://127.0.0.1:8000/api/clients/" + id);
+        .delete(CLIENTS_API + "/" + id);
 }
 
 

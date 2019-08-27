@@ -15,6 +15,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MyPhysio from './pages/MyPhysio';
 
 
 
@@ -50,7 +51,7 @@ const App = () => {
                             <PrivateRoute path="/diary" component={DiaryPage} />
                             <PrivateRoute path="/factures/:id" component={InvoicePage} />
                             <PrivateRoute path="/factures" component={InvoicesPage} />
-                            <Route path="/" component={HomePage} />
+                            <Route path="/" component={MyPhysio} />
                         </Switch>
                     </main>
                 </HashRouter>

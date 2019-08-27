@@ -1,31 +1,32 @@
 import axios from "axios";
+import { DIARY_API } from '../config';
 
 function findAll() {
     return axios
-        .get("http://127.0.0.1:8000/api/diaries")
+        .get(DIARY_API)
         .then(response => response.data['hydra:member']);
 }
 
 function find(id) {
     return axios
-            .get("http://127.0.0.1:8000/api/diaries/" + id)
+            .get( DIARY_API + "/" + id)
             .then(response => response.data);
 }
 
 function update(id, diary) {
     return axios
-        .put("http://127.0.0.1:8000/api/diaries/" + id,
+        .put(DIARY_API + "/" + id,
              { ...diary, clients: `/api/clients/${diary.clients}`});
 }
 
 function create(diary) {
     return axios
-        .post("http://127.0.0.1:8000/api/diaries", {...diary, clients: `/api/clients/${diary.clients}`});
+        .post(DIARY_API, {...diary, clients: `/api/clients/${diary.clients}`});
 }
 
 function deleteDiary(id) {
     return axios
-        .delete("http://127.0.0.1:8000/api/diaries/" + id);
+        .delete(DIARY_API + "/" + id);
 }
 
 export default { findAll, find, create, update, delete: deleteDiary };
