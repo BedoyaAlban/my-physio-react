@@ -49,7 +49,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
             if($resourceClass === Diary::class) {
                 $queryBuilder->andWhere("$rootAlias.users = :user");
             }
-            $queryBuilder->setParameter("users", $user);
+            $queryBuilder->setParameter("user", $user);
         }
     }
 
