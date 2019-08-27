@@ -116,7 +116,7 @@ class Diary
         return $this->users;
     }
 
-    public function setUser(?User $users): self
+    public function setUsers(?User $users): self
     {
         $this->users = $users;
 

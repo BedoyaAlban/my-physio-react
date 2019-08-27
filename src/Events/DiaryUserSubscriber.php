@@ -34,7 +34,7 @@ class DiaryUserSubscriber implements EventSubscriberInterface
             //Récupérer l'utilisateur actuellement connecté
             $user = $this->security->getUser();
             //Assigner l'utilisateur au client qu'on est en train de créer
-            $diary->setUser($user);
+            $diary->setUsers($user);
         }
     }
 }
