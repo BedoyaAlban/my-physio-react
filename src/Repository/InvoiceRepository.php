@@ -21,7 +21,9 @@ class InvoiceRepository extends ServiceEntityRepository
     }
 
     public function findNextChrono(User $user) {
-        return $this->createQueryBuilder("i")
+        
+        try {
+            return $this->createQueryBuilder("i")
                     ->select("i.chrono")
                     ->join("i.client", "c")
                     ->where("c.user = :user")
@@ -30,6 +32,10 @@ class InvoiceRepository extends ServiceEntityRepository
                     ->setMaxResults(1)
                     ->getQuery()
                     ->getSingleScalarResult() + 1;
+        } catch(\Exception $e) {
+            return 1;
+        }
+        
     }
 
     // /**
