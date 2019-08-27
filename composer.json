@@ -1,4 +1,6 @@
 {
+    "name": "My-Physio",
+    "description": "Un crm cool",
     "type": "project",
     "license": "proprietary",
     "require": {

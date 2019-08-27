@@ -1,4 +1,10 @@
 {
+    "name": "myphysio",
+    "description": "Un crm cool",
+    "version": "1.0.0",
+    "engines": {
+        "node": "10.16.0"
+    },
     "devDependencies": {
         "@babel/core": "^7.5.4",
         "@babel/plugin-proposal-class-properties": "^7.5.0",
