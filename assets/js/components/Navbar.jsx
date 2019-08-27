@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const Navbar = ({ history }) => {
 
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-
+    //
     const handleLogout = () => {
         AuthAPI.logout();
         setIsAuthenticated(false);
