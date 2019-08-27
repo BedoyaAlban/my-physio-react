@@ -5,6 +5,7 @@ const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
     const pagesCount = Math.ceil(length / itemsPerPage);
     const pages = [];
 
+    //Boucle pour la pagination
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
