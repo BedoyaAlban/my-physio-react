@@ -53,6 +53,6 @@ security:
         - { path: ^/api/clients, roles: ROLE_ADMIN }
         - { path: ^/api/invoices, roles: ROLE_ADMIN }
         - { path: ^/api/diary, roles: ROLE_ADMIN }
-        - { path: ^/api/users, roles: SUPER_ROLE_ADMIN, methods: [GET, PUT, DELETE] }
+        - { path: ^/api/users, roles: ROLE_ADMIN, methods: [GET, PUT, DELETE] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
