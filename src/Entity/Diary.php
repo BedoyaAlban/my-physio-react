@@ -55,7 +55,7 @@ class Diary
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="diaries")
      * @Groups({"diaries_read"})
      */
-    private $user;
+    private $users;
     
 
     public function getId(): ?int
@@ -111,14 +111,14 @@ class Diary
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUsers(): ?User
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $users): self
     {
-        $this->user = $user;
+        $this->users = $users;
 
         return $this;
     }
