@@ -272,6 +272,56 @@ const ClientPage = ({match, history} ) => {
                         <Link to="/clients" className="btn btn-link">Retour à la liste</Link>
                     </div>
                 </form>)}
+                {editing && 
+                (<div className="col-md-6">
+                    <div id="invoices">
+                        <h2>Factures :</h2>
+                        <table id="table-invoices" className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Numéro</th>
+                                    <th className="text-center">Date d'envoi</th>
+                                    <th className="text-center">Statut</th>
+                                    <th className="text-center">Montant</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {clientInvoices.map(invoice => 
+                                <tr key={invoice.chrono}>
+                                    <td>
+                                        <Link to={"/factures/" + invoice.id} className="nav-link">{invoice.chrono}</Link>
+                                    </td>
+                                    <td className="text-center">{formatDate(invoice.sentAt)}</td>
+                                    <td className="text-center">
+                                        <span className={"badge badge-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span>
+                                    </td>
+                                    <td className="text-center">{invoice.amount.toLocaleString()}€</td>
+                                </tr> 
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="appointements">
+                        <h4>Prochain rendez-vous avec  {client.lastName} {client.firstName} :</h4>
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {(clientDiaries.length > 0) ? 
+                                (clientDiaries.map((diary, index) =>
+                                    <tr key={index}>
+                                        <td><strong>{(formatAppointment(diary))}H</strong></td>
+                                    </tr>) ) : (<tr>
+                                        <td><strong>Vous n'avez pas de rendez-vous prévu.</strong></td>
+                                    </tr>)}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>)}
             </div>
         </div>
        

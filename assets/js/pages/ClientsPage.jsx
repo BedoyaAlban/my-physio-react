@@ -153,13 +153,12 @@ const ClientsPage = props => {
             </table>
             {loading && <TableLoader />} 
             <div className="row">
-                {itemsPerPage < filteredClients.length && 
                     <Pagination 
                         currentPage={currentPage} 
                         itemsPerPage={itemsPerPage} 
                         length={filteredClients.length} 
                         onPageChanged={handlePageChange} 
-                    />}
+                    />
                 <div id="export-clients">
                     <div id="button-export" onMouseOver={() => popover()} onMouseLeave={() => hidePopover()}>
                         <ExportClients />
