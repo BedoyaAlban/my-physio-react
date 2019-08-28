@@ -320,6 +320,7 @@ class Clients
     }
 
     /**
+     * 
      * @return Collection|Diary[]
      */
     public function getDiaries(): Collection
@@ -337,6 +338,7 @@ class Clients
         return $this;
     }
 
+    
     public function removeDiary(Diary $diary): self
     {
         if ($this->diaries->contains($diary)) {

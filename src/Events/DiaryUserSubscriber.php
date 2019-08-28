@@ -33,7 +33,7 @@ class DiaryUserSubscriber implements EventSubscriberInterface
         if ($diary instanceof Diary && $method === "POST") {
             //Récupérer l'utilisateur actuellement connecté
             $user = $this->security->getUser();
-            //Assigner l'utilisateur au client qu'on est en train de créer
+            //Assigner l'utilisateur au rendez-vous du client qu'on est en train de créer
             $diary->setUsers($user);
         }
     }

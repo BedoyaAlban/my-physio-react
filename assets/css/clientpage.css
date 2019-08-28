@@ -1,4 +1,6 @@
-
+div#client-view{
+    display: flex;
+}
 #appointements{
     margin: 6px;
     padding-top: 50px;

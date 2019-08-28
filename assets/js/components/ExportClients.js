@@ -21,13 +21,14 @@ class ExportClients extends React.Component {
         const responses = await ClientsAPI.findAll();
         const fillData = [];
         
-        for (let response of responses) {
-            let clients = {
+        for(let response of responses){
+
+            let clients = [{
                 lastName: response.lastName,
                 firstName: response.firstName,
                 numberInvoices: response.invoices.length,
                 totalAmount: response.totalAmount,
-            }
+            }]
             fillData.push(clients);
         }
 
