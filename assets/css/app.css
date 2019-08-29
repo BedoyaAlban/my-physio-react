@@ -1,0 +1,11 @@
+button#close-menu {
+    position: absolute;
+    right: 16px;
+    bottom: 8px;
+    display: none;
+}
+
+i.fa.fa-times {
+    font-size: x-large;
+    padding: 7px;
+}

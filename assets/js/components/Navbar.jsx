@@ -15,13 +15,30 @@ const Navbar = ({ history }) => {
         history.push("/login");
     };
 
+    const displayMenu = () => {
+        const menu = document.getElementById("navbarColor01");
+        menu.style.display = "block";
+        const bClose = document.getElementById("close-menu");
+        bClose.style.display = "block";
+    }
+
+    const closeMenu = () => {
+        const menu = document.getElementById("navbarColor01");
+        menu.style.display = "none";
+        const bClose = document.getElementById("close-menu");
+        bClose.style.display = "none";
+    }
+
     return ( 
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <NavLink className="navbar-brand" to="/myphysio">
             My-Physio
         </NavLink>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <button onClick={() => displayMenu()} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
+        </button>
+        <button onClick={() => closeMenu()} id="close-menu" className="navbar-toggler" type="button">
+        <i className="fa fa-times"></i>
         </button>
        <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav mr-auto">
