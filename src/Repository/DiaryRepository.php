@@ -20,6 +20,7 @@ class DiaryRepository extends ServiceEntityRepository
         parent::__construct($registry, Diary::class);
     }
 
+    
     // /**
     //  * @return Diary[] Returns an array of Diary objects
     //  */

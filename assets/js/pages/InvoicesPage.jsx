@@ -144,7 +144,7 @@ const InvoicesPage = (props) => {
                         <span className={"badge badge-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span>
                     </td>
                     <td className="text-center">{invoice.amount.toLocaleString()}€</td>
-                    <td>
+                    <td className="text-center">
                         <Link 
                             to={"/factures/" + invoice.id } 
                             className="btn btn-sm btn-primary mr-1">

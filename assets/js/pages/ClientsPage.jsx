@@ -119,7 +119,6 @@ const ClientsPage = props => {
                         <th className="text-center">Factures</th>
                         <th className="text-center">Montant total</th>
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 {!loading && (<tbody>
@@ -139,15 +138,14 @@ const ClientsPage = props => {
                         <td className="text-center" id="td-button">
                             <button 
                                 onClick={() => handleDelete(clients.id)}
-                                disabled={clients.invoices.length > 0}
+                                disabled={clients.invoices.length > 0 || clients.diaries.length > 0}
                                 className="btn btn-sm btn-danger">Supprimer
                             </button>
-                            <div className="popover fade show bs-popover-right" role="tooltip" id={(clients.invoices.length > 0 && "popover468793" || "hidden")}>
+                            <div className="popover fade show bs-popover-right" role="tooltip" id={((clients.invoices.length > 0 || clients.diaries.length > 0) && "popover468793" || "hidden")}>
                                     <div id="arrow-client" className="arrow"></div>
-                                    <div className="popover-body">Un client possédant des factures ne peut pas être supprimé.</div>
+                                    <div className="popover-body">Un client possédant des factures/rendez-vous ne peut pas être supprimé.</div>
                                 </div>
                         </td>
-                        <td></td>
                     </tr> )}    
                 </tbody>)}
             </table>

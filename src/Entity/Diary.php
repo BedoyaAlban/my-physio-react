@@ -23,7 +23,7 @@ class Diary
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"diaries_read"})
+     * @Groups({"diaries_read", "clients_read"})
      */
     private $id;
 

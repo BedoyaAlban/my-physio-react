@@ -45,3 +45,7 @@ div#button-popover:hover div#popover669561.popover.fade.bs-popover-top.show {
 #hidden {
     display: none;
 }
+
+#hide-by-default {
+    display: none;
+}

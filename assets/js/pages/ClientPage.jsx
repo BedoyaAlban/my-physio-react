@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import moment from "moment";
 import '../../css/clientpage.css';
 import FormLoader from '../components/laoders/FormLoader';
+import InvoicesAPI from '../services/invoicesAPI';
+import DiaryAPI from '../services/diaryAPI';
+import Pagination from "../components/Pagination";
 
 
 
@@ -41,6 +44,7 @@ const ClientPage = ({match, history} ) => {
     });
 
     const [clientDiaries, setClientDiaries] = useState({});
+    const [diariesToDelete, setDiariesToDelete] = useState([]);
     const [clientInvoices, setClientInvoices] = useState([]);
     
 
@@ -59,6 +63,23 @@ const ClientPage = ({match, history} ) => {
     };
 
     const [loading, setLoading] = useState(false);
+
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    // Gestion du changement de page
+    const handlePageChange = page => setCurrentPage(page);
+
+    const paginatedInvoices = Pagination.getData(
+        clientInvoices, 
+        currentPage, 
+        itemsPerPage
+    );
+
+    const paginatedDiariesToDelete = Pagination.getData(
+        diariesToDelete, 
+        currentPage, 
+        itemsPerPage
+    );
 
     //Récupération du client en fonction de l'identifiant
     const fetchClient = async id => {
@@ -90,15 +111,28 @@ const ClientPage = ({match, history} ) => {
                 securitySocialNumber,
                 note
             });
-            
             var fillClientDiaries = [];
-
+            var fillDiariesToDelete = [];
+            
             for (let diary of diaries) {
-                if(Date.parse(diary.startSession) > today) {
-                    let appointement = diary.startSession;
-                    fillClientDiaries.push(appointement);
+
+                if(Date.parse(diary.startSession) < today) {
+                    let appointement = 
+                        {id : diary.id,
+                        startSession: diary.startSession,}
+                    
+                    fillDiariesToDelete.push(appointement);
                 }
+
+                if(Date.parse(diary.startSession) > today) {
+                    let appointement = 
+                        {id : diary.id,
+                        startSession: diary.startSession,}
+                    
+                    fillClientDiaries.push(appointement);
+                } 
             }
+            setDiariesToDelete(fillDiariesToDelete);
             setClientDiaries(fillClientDiaries);
             setClientInvoices(invoices);
             setLoading(false);
@@ -165,6 +199,53 @@ const ClientPage = ({match, history} ) => {
     const formatAppointment = (str) => moment(str).format('DD/MM/YYYY HH:mm');
 
     const today = Date.now();
+
+    const handleDeleteInvoices = async id => {
+        const originalInvoices = [...clientInvoices];
+
+        setClientInvoices(clientInvoices.filter(invoice => invoice.id !== id));
+        try {
+            await InvoicesAPI.delete(id);
+            toast.success("La facture a bien été supprimée");
+        } catch (error) {
+            toast.error("Une erreur est survenue !");
+            setInvoices(originalInvoices);
+        }
+    };
+
+    const handleDeleteDiaryToCome = async id => {
+        const originalDiariesToCome = [...clientDiaries];
+        setClientDiaries(clientDiaries.filter(diary => diary.id !== id));
+        try {
+            await DiaryAPI.delete(id);
+            toast.success("Le rendez-vous a bien été supprimé");
+        } catch (error) {
+            toast.error("Une erreur est survenue !");
+            setInvoices(originalDiariesToCome);
+        }
+    };
+
+    const handleDeleteDiaryPast = async id => {
+        const originalDiariesPast = [...diariesToDelete];
+        setDiariesToDelete(diariesToDelete.filter(diary => diary.id !== id));
+        try {
+            await DiaryAPI.delete(id);
+            toast.success("Le rendez-vous a bien été supprimé");
+        } catch (error) {
+            toast.error("Une erreur est survenue !");
+            setInvoices(originalDiariesPast);
+        }
+    }
+
+    const displayDiariesToDelete = () => {
+        const diaries = document.getElementById("hide-by-default");
+        diaries.style.display = "block";
+    }
+
+    const hideDiariesToDelete = () => {
+        const diaries = document.getElementById("hide-by-default");
+        diaries.style.display = "none";
+    }
         
     return ( 
     <>
@@ -280,30 +361,49 @@ const ClientPage = ({match, history} ) => {
                         <div id="invoices">
                             <h2>Factures :</h2>
                             <table id="table-invoices" className="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Numéro</th>
-                                        <th className="text-center">Date d'envoi</th>
-                                        <th className="text-center">Statut</th>
-                                        <th className="text-center">Montant</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                            {(clientInvoices.length > 0) && (
+                            <thead>
+                                <tr>
+                                    <th className="text-center">Numéro</th>
+                                    <th className="text-center">Date d'envoi</th>
+                                    <th className="text-center">Statut</th>
+                                    <th className="text-center">Montant</th>
+                                    <th></th>
+                                </tr>
+                            </thead>) || (<thead>
+                                <tr>
+                                    <th>Ce client ne possède pas de facture!</th>
+                                </tr>
+                            </thead>)}
                                 <tbody>
-                                {clientInvoices.map(invoice => 
+                                {paginatedInvoices.map(invoice => 
                                     <tr key={invoice.chrono}>
-                                        <td>
-                                            <Link to={"/factures/" + invoice.id} className="nav-link">{invoice.chrono}</Link>
+                                        <td className="text-center">
+                                            <Link to={"/factures/" + invoice.id}>{invoice.chrono}</Link>
                                         </td>
                                         <td className="text-center">{formatDate(invoice.sentAt)}</td>
                                         <td className="text-center">
                                             <span className={"badge badge-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span>
                                         </td>
                                         <td className="text-center">{invoice.amount.toLocaleString()}€</td>
-                                    </tr> 
-                                    )}
+                                        <td>
+                                        <button 
+                                            className="btn btn-sm btn-danger" 
+                                            onClick={() => handleDeleteInvoices(invoice.id)}
+                                            >
+                                            Supprimer
+                                        </button>
+                                        </td>
+                                </tr>)}
                                 </tbody>
                             </table>
+                            {(clientInvoices.length > 0) &&
+                            <Pagination 
+                                currentPage={currentPage} 
+                                itemsPerPage={itemsPerPage} 
+                                onPageChanged={handlePageChange} 
+                                length={clientInvoices.length}
+                            />}
                         </div>
                         <div id="appointements">
                             <h4>Prochain rendez-vous avec  {client.lastName} {client.firstName} :</h4>
@@ -311,18 +411,62 @@ const ClientPage = ({match, history} ) => {
                                 <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {(clientDiaries.length > 0) ? 
-                                    (clientDiaries.map((diary, index) =>
-                                        <tr key={index}>
-                                            <td><strong>{(formatAppointment(diary))}H</strong></td>
+                                    (clientDiaries.map(diary =>
+                                        <tr key={diary.id}>
+                                            <td><strong>{(formatAppointment(diary.startSession))}H</strong></td>
+                                            <td>
+                                                <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiaryToCome(diary.id)}>Supprimer</button>
+                                            </td>
                                         </tr>) ) : (<tr>
                                             <td><strong>Vous n'avez pas de rendez-vous prévu.</strong></td>
                                         </tr>)}
+                                        {(diariesToDelete.length > 0) &&<tr>
+                                            <td><strong>Supprimer les rendez-vous d'un client</strong></td>
+                                            <td>
+                                                <button className="btn btn-sm btn-info" onClick={() => displayDiariesToDelete()}>Faire Défiler</button>
+                                            </td>
+                                        </tr>}
                                 </tbody>
                             </table>
+                            <div id="hide-by-default">
+                                <table className="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {(diariesToDelete.length > 0) ? (paginatedDiariesToDelete.map(diary =>
+                                        <tr key={diary.id}>
+                                            <td><strong>{(formatAppointment(diary.startSession))}H</strong></td>
+                                                <td className="text-center">
+                                                    <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiaryPast(diary.id)}>Supprimer</button>
+                                                </td>
+                                        </tr>)) : (<tr>
+                                                <td><strong>Il n'y a plus de rendez-vous à supprimer.</strong></td>
+                                            </tr>)}
+                                        <tr>
+                                            <td>Fermer le tableau</td>
+                                            <td className="text-center">
+                                                <button className="btn btn-sm btn-outline-danger" onClick={() => hideDiariesToDelete()}>Fermer</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {(diariesToDelete.length > 0) && 
+                                <Pagination 
+                                    currentPage={currentPage} 
+                                    itemsPerPage={itemsPerPage} 
+                                    onPageChanged={handlePageChange} 
+                                    length={diariesToDelete.length}
+                                />}
+                            </div>
                         </div>
                     </div>)}
         </div>
