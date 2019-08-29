@@ -11,36 +11,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
-  --blue: #4582EC;
-  --indigo: #6610f2;
-  --purple: #6f42c1;
-  --pink: #e83e8c;
-  --red: #d9534f;
-  --orange: #fd7e14;
-  --yellow: #f0ad4e;
-  --green: #02B875;
-  --teal: #20c997;
-  --cyan: #17a2b8;
-  --white: #fff;
-  --gray: #868e96;
-  --gray-dark: #343a40;
-  --primary: #4582EC;
-  --secondary: #adb5bd;
-  --success: #02B875;
-  --info: #17a2b8;
-  --warning: #f0ad4e;
-  --danger: #d9534f;
-  --light: #f8f9fa;
-  --dark: #343a40;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
+
 
 *,
 *::before,
@@ -90,16 +61,6 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
-}
-
-abbr[title],
-abbr[data-original-title] {
-  text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
-  cursor: help;
-  border-bottom: 0;
-  text-decoration-skip-ink: none;
 }
 
 address {
@@ -6037,8 +5998,6 @@ a.close.disabled {
   border: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
   opacity: 0;
   border-radius: 0.25rem;
 }
