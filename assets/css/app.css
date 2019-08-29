@@ -10,12 +10,36 @@ button#close-menu {
 }
 
 i.fa.fa-times {
-    font-size: x-large;
+    font-size: 3rem;
     padding: 7px;
 }
 
-@media screen and (max-width: 320px) {
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary {
-        height: 120px;
+@media(min-width:992px) {
+    #nav-responsive {
+        font-size: 1.930125rem;
+    }
+    a.navbar-brand {
+        font-size: 3.32875rem;
+    }
+    button#button-disconnect {
+        font-size: 1.2rem;
+    }
+}
+
+@media(min-width:325px) {
+    .navbar {
+        font-size: 2.930125rem;
+    }
+    .navbar-brand {
+        font-size: 5.32875rem;
+    }
+    .navbar-toggler {
+        font-size: 2.32875rem;
+    }
+    #button-disconnect {
+        font-size: 1.8rem;
+    }
+    #table-responsive-clients{
+        font-size: 1.2rem;
     }
 }

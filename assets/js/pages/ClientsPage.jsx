@@ -111,7 +111,7 @@ const ClientsPage = props => {
                 />
             </div>
 
-            <table className="table table-hover">
+            <table className="table table-hover" id="table-responsive-clients">
                 <thead>
                     <tr>
                         <th className="text-center">Client</th>

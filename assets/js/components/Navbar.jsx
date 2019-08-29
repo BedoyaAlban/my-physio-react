@@ -30,7 +30,7 @@ const Navbar = ({ history }) => {
     }
 
     return ( 
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary" id="nav-responsive">
         <NavLink className="navbar-brand" to="/myphysio">
             My-Physio
         </NavLink>
@@ -84,7 +84,7 @@ const Navbar = ({ history }) => {
                     </>
                 )) || (
                 <li className="nav-item">
-                    <button onClick={handleLogout} className="btn btn-danger">
+                    <button onClick={handleLogout} className="btn btn-danger" id="button-disconnect">
                         Déconnexion
                     </button>
                 </li>

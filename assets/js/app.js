@@ -21,8 +21,10 @@ import MyPhysio from './pages/MyPhysio';
 
 
 // any CSS you require will output into a single css file (app.css in this case)
-require('../css/bootstrap.min.css');
+require('../css/bootstrap.css');
 require('../css/app.css');
+require('../scss/breakpoints.scss');
+require('../scss/media.scss');
 
 AuthAPI.setup();
 

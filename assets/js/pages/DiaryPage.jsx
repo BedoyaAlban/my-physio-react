@@ -13,7 +13,6 @@ import "@fullcalendar/daygrid/main.js";
 import "@fullcalendar/bootstrap/main.js";
 import '../../css/diarypage.css';
 import '../../css/main.scss'; // webpack must be configured to do this
-import '../../css/bootstrap.min.css';
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
@@ -323,7 +322,7 @@ const DiaryPage = ({history, match}) => {
         </div>
       </div>
       
-      <div>
+      <div id="diary-content">
         <FullCalendar 
           defaultView="timeGridWeek" 
           header={{
