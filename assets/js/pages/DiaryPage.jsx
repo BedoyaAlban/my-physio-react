@@ -36,6 +36,8 @@ const DiaryPage = ({history, match}) => {
     firstName: "",
     lastName: ""
   });
+
+  const zero = 0;
   
   // Récupération des rendez-vous
   const fetchDiaries = async () => {
@@ -85,10 +87,11 @@ const DiaryPage = ({history, match}) => {
     }
   };
   //Au chargement du composant on récupère les clients
-  useEffect(() => {
-    if(diaries.length > O)
-    {fetchClients();}
-  }, []);
+  if(diaries.length > zero) {
+    useEffect(() => {
+      fetchClients();
+    }, []);
+  }
   //Au chargement du composant on récupère les rendez-vous
   useEffect(() => {
     fetchDiaries();
