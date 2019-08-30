@@ -151,8 +151,8 @@ const ClientsPage = props => {
                 </tbody>)}
             </table>
             {loading && <TableLoader />} 
-            <div className="row responsive">
-                    <Pagination 
+            {paginatedClients.length > 0 && (<div className="row responsive">
+                     <Pagination 
                         currentPage={currentPage} 
                         itemsPerPage={itemsPerPage} 
                         length={filteredClients.length} 
@@ -167,7 +167,7 @@ const ClientsPage = props => {
                         <div className="popover-body">Exporter vos clients sous fichier Excel.</div>
                     </div>
                 </div>
-            </div>
+            </div>)}
         </>
     );
 };

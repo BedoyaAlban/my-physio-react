@@ -156,7 +156,7 @@ const InvoicesPage = (props) => {
             </tbody>)}
         </table>
         {loading && <TableLoader />}
-        <div className="row responsive">
+        {paginatedInvoices.length > 0 && (<div className="row responsive">
             <Pagination 
                 currentPage={currentPage} 
                 itemsPerPage={itemsPerPage} 
@@ -172,7 +172,7 @@ const InvoicesPage = (props) => {
                     <div className="popover-body">Exporter vos factures sous fichier Excel.</div>
                 </div>
             </div>
-        </div>
+        </div>)}
         
     </> 
     );
