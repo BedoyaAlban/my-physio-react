@@ -71,7 +71,7 @@ const DiaryPage = ({history, match}) => {
         setClient(data);
         if (!diary.clients) setDiary({...diary, clients: data[0].id });
     } catch (error) {
-        toast.error("Une erreur est survenue !");
+        toast.error("Une erreur est survenue au chargement des clients!");
     }
   };
   //Récupération du rendez-vous en fonction de l'id
@@ -81,7 +81,7 @@ const DiaryPage = ({history, match}) => {
       setDiary({...diary, clients: data.clients.id});
       setName({...name, firstName: data.clients.firstName, lastName: data.clients.lastName});
     } catch (error) {
-      toast.error("Une erreur est survenue !");
+      toast.error("Une erreur est survenue au chargement des rendez-vous!");
     }
   };
   //Au chargement du composant on récupère les clients
