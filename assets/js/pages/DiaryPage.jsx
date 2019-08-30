@@ -86,15 +86,12 @@ const DiaryPage = ({history, match}) => {
       toast.error("Une erreur est survenue au chargement des rendez-vous!");
     }
   };
-  //Au chargement du composant on récupère les clients
-  if(diaries.length > zero) {
-    useEffect(() => {
-      fetchClients();
-    }, []);
-  }
   //Au chargement du composant on récupère les rendez-vous
   useEffect(() => {
     fetchDiaries();
+    if(diaries.length > zero) {
+      fetchClients();
+    }
   }, []);
   //Changement du format de la date pour affichage
   const formatDate = (str) => moment(str).format('DD/MM/YYYY à HH:mm');
