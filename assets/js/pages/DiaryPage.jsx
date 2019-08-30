@@ -71,7 +71,7 @@ const DiaryPage = ({history, match}) => {
     try {
         const data = await clientsAPI.findAll();
         setClient(data);
-        if (!diary.clients && (diaries.length > zero)) setDiary({...diary, clients: data[0].id });
+        if (!diary.clients) setDiary({...diary, clients: data[0].id });
     } catch (error) {
         toast.error("Une erreur est survenue au chargement des clients!");
     }
@@ -89,7 +89,7 @@ const DiaryPage = ({history, match}) => {
   //Au chargement du composant on récupère les rendez-vous
   useEffect(() => {
     fetchDiaries();
-    if(diaries.length > zero) {
+    if(diaries.length > zero){
       fetchClients();
     }
   }, []);
