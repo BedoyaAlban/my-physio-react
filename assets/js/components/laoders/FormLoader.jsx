@@ -1,6 +1,6 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
-
+// Composant Formloader 
 const FormLoader = props => (
     <ContentLoader
         height={500}

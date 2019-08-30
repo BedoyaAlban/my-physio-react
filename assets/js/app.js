@@ -17,13 +17,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPhysio from './pages/MyPhysio';
 
-
-
-
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/bootstrap.css');
 require('../css/app.css');
-
 
 AuthAPI.setup();
 
@@ -33,8 +29,6 @@ const App = () => {
         AuthAPI.isAuthenticated());
 
     const NavbarWithRouter = withRouter(Navbar);
-
-    
 
     return (<AuthContext.Provider value={{
                 isAuthenticated,

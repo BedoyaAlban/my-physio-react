@@ -1,5 +1,5 @@
 import React from 'react';
-
+// Composant select récupère le choix du select via children
 const Select = ({name, value, error = "", label, onChange, children}) => {
     return ( 
         <div className="form-group">
@@ -11,7 +11,7 @@ const Select = ({name, value, error = "", label, onChange, children}) => {
                 id={name} 
                 className={"form-control" + (error && " is-invalid")}
             >
-                {children}
+                {children} 
             </select>
             <p className="invalid-feedback">{error}</p>
         </div> 

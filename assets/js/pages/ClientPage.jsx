@@ -68,13 +68,13 @@ const ClientPage = ({match, history} ) => {
     const [currentPage, setCurrentPage] = useState(1);
     // Gestion du changement de page
     const handlePageChange = page => setCurrentPage(page);
-
+    //Pagination des données
     const paginatedInvoices = Pagination.getData(
         clientInvoices, 
         currentPage, 
         itemsPerPage
     );
-
+    //Pagination des données
     const paginatedDiariesToDelete = Pagination.getData(
         diariesToDelete, 
         currentPage, 
@@ -193,13 +193,13 @@ const ClientPage = ({match, history} ) => {
             }
         }
     };
-
+    // Gestion du format de la date
     const formatDate = (str) => moment(str).format('DD/MM/YYYY');
-
+    // Gestion du format du rendez-vous
     const formatAppointment = (str) => moment(str).format('DD/MM/YYYY HH:mm');
 
     const today = Date.now();
-
+    // Gestion de la suppression d'une facture
     const handleDeleteInvoices = async id => {
         const originalInvoices = [...clientInvoices];
 
@@ -212,7 +212,7 @@ const ClientPage = ({match, history} ) => {
             setInvoices(originalInvoices);
         }
     };
-
+    // Gestion de la suppression d'un rendez-vous à venir
     const handleDeleteDiaryToCome = async id => {
         const originalDiariesToCome = [...clientDiaries];
         setClientDiaries(clientDiaries.filter(diary => diary.id !== id));
@@ -224,7 +224,7 @@ const ClientPage = ({match, history} ) => {
             setInvoices(originalDiariesToCome);
         }
     };
-
+    // Gestion de la suppression d'in rendez-vous passé
     const handleDeleteDiaryPast = async id => {
         const originalDiariesPast = [...diariesToDelete];
         setDiariesToDelete(diariesToDelete.filter(diary => diary.id !== id));
@@ -236,12 +236,12 @@ const ClientPage = ({match, history} ) => {
             setInvoices(originalDiariesPast);
         }
     }
-
+    // Affichage des rendez-vous à supprimer
     const displayDiariesToDelete = () => {
         const diaries = document.getElementById("hide-by-default");
         diaries.style.display = "block";
     }
-
+    // Fermer le tableau des rendez-vous passés
     const hideDiariesToDelete = () => {
         const diaries = document.getElementById("hide-by-default");
         diaries.style.display = "none";
@@ -355,12 +355,12 @@ const ClientPage = ({match, history} ) => {
                         <Link to="/clients" className="btn btn-link">Retour à la liste</Link>
                     </div>
                 </form>)}
-                </div>
-                {editing && 
-                    (<div className="col-md-6">
-                        <div id="invoices">
-                            <h2>Factures :</h2>
-                            <table id="table-invoices" className="table table-hover">
+            </div>
+            {editing && 
+                (<div className="col-md-6">
+                    <div id="invoices">
+                        <h2>Factures :</h2>
+                        <table id="table-invoices" className="table table-hover">
                             {(clientInvoices.length > 0) && (
                             <thead>
                                 <tr>
@@ -370,7 +370,8 @@ const ClientPage = ({match, history} ) => {
                                     <th className="text-center">Montant</th>
                                     <th></th>
                                 </tr>
-                            </thead>) || (<thead>
+                            </thead>) || (
+                            <thead>
                                 <tr>
                                     <th>Ce client ne possède pas de facture!</th>
                                 </tr>
@@ -386,7 +387,7 @@ const ClientPage = ({match, history} ) => {
                                             <span className={"badge badge-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span>
                                         </td>
                                         <td className="text-center">{invoice.amount.toLocaleString()}€</td>
-                                        <td>
+                                        <td className="text-center">
                                         <button 
                                             className="btn btn-sm btn-danger" 
                                             onClick={() => handleDeleteInvoices(invoice.id)}
@@ -394,19 +395,48 @@ const ClientPage = ({match, history} ) => {
                                             Supprimer
                                         </button>
                                         </td>
-                                </tr>)}
+                                    </tr>)
+                                }
                                 </tbody>
-                            </table>
-                            {(clientInvoices.length > 0) &&
-                            <Pagination 
-                                currentPage={currentPage} 
-                                itemsPerPage={itemsPerPage} 
-                                onPageChanged={handlePageChange} 
-                                length={clientInvoices.length}
-                            />}
-                        </div>
-                        <div id="appointements">
-                            <h4>Prochain rendez-vous avec  {client.lastName} {client.firstName} :</h4>
+                        </table>
+                        {(clientInvoices.length > 0) &&
+                        <Pagination 
+                            currentPage={currentPage} 
+                            itemsPerPage={itemsPerPage} 
+                            onPageChanged={handlePageChange} 
+                            length={clientInvoices.length}
+                        />}
+                    </div>
+                    <div id="appointements">
+                        <h4>Prochain rendez-vous avec  {client.lastName} {client.firstName} :</h4>
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {(clientDiaries.length > 0) ? 
+                                (clientDiaries.map(diary =>
+                                    <tr key={diary.id}>
+                                        <td><strong>{(formatAppointment(diary.startSession))}H</strong></td>
+                                        <td>
+                                            <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiaryToCome(diary.id)}>Supprimer</button>
+                                        </td>
+                                    </tr>) ) : (
+                                    <tr>
+                                        <td><strong>Vous n'avez pas de rendez-vous prévu.</strong></td>
+                                    </tr>)}
+                                    {(diariesToDelete.length > 0) &&<tr>
+                                        <td><strong>Supprimer les rendez-vous d'un client</strong></td>
+                                        <td>
+                                            <button className="btn btn-sm btn-info" onClick={() => displayDiariesToDelete()}>Faire Défiler</button>
+                                        </td>
+                                    </tr>}
+                            </tbody>
+                        </table>
+                        <div id="hide-by-default">
                             <table className="table table-hover">
                                 <thead>
                                     <tr>
@@ -415,60 +445,34 @@ const ClientPage = ({match, history} ) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {(clientDiaries.length > 0) ? 
-                                    (clientDiaries.map(diary =>
-                                        <tr key={diary.id}>
-                                            <td><strong>{(formatAppointment(diary.startSession))}H</strong></td>
-                                            <td>
-                                                <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiaryToCome(diary.id)}>Supprimer</button>
+                                {(diariesToDelete.length > 0) ? (paginatedDiariesToDelete.map(diary =>
+                                    <tr key={diary.id}>
+                                        <td><strong>{(formatAppointment(diary.startSession))}H</strong></td>
+                                            <td className="text-center">
+                                                <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiaryPast(diary.id)}>Supprimer</button>
                                             </td>
-                                        </tr>) ) : (<tr>
-                                            <td><strong>Vous n'avez pas de rendez-vous prévu.</strong></td>
+                                    </tr>)) : (<tr>
+                                            <td><strong>Il n'y a plus de rendez-vous à supprimer.</strong></td>
                                         </tr>)}
-                                        {(diariesToDelete.length > 0) &&<tr>
-                                            <td><strong>Supprimer les rendez-vous d'un client</strong></td>
-                                            <td>
-                                                <button className="btn btn-sm btn-info" onClick={() => displayDiariesToDelete()}>Faire Défiler</button>
-                                            </td>
-                                        </tr>}
+                                    <tr>
+                                        <td>Fermer le tableau</td>
+                                        <td className="text-center">
+                                            <button className="btn btn-sm btn-outline-danger" onClick={() => hideDiariesToDelete()}>Fermer</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            <div id="hide-by-default">
-                                <table className="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {(diariesToDelete.length > 0) ? (paginatedDiariesToDelete.map(diary =>
-                                        <tr key={diary.id}>
-                                            <td><strong>{(formatAppointment(diary.startSession))}H</strong></td>
-                                                <td className="text-center">
-                                                    <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiaryPast(diary.id)}>Supprimer</button>
-                                                </td>
-                                        </tr>)) : (<tr>
-                                                <td><strong>Il n'y a plus de rendez-vous à supprimer.</strong></td>
-                                            </tr>)}
-                                        <tr>
-                                            <td>Fermer le tableau</td>
-                                            <td className="text-center">
-                                                <button className="btn btn-sm btn-outline-danger" onClick={() => hideDiariesToDelete()}>Fermer</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                {(diariesToDelete.length > 0) && 
-                                <Pagination 
-                                    currentPage={currentPage} 
-                                    itemsPerPage={itemsPerPage} 
-                                    onPageChanged={handlePageChange} 
-                                    length={diariesToDelete.length}
-                                />}
-                            </div>
+                            {(diariesToDelete.length > 0) && 
+                            <Pagination 
+                                currentPage={currentPage} 
+                                itemsPerPage={itemsPerPage} 
+                                onPageChanged={handlePageChange} 
+                                length={diariesToDelete.length}
+                            />}
                         </div>
-                    </div>)}
+                    </div>
+                </div>)
+            }
         </div>
     </>);
 }

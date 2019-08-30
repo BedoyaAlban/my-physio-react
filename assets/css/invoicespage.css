@@ -33,3 +33,22 @@ div#popover226302.popover.fade.show.bs-popover-top {
 button#export.btn.btn-primary:hover div#popover226302.popover.fade.show.bs-popover-top {
     opacity: 1;
 }
+
+
+@media(max-width:330px) {
+    div#popover226302.popover.fade.show.bs-popover-top {
+        right: 16px;
+        top: -93px;
+        max-width: 123px;
+    }
+    div.arrow#popover-export {
+        left: 45px;
+    }
+    div#pagination {
+        width: 100%;
+    }
+    div#export-invoices {
+        width: 100%;
+    }
+}
+

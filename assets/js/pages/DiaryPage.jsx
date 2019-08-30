@@ -37,14 +37,14 @@ const DiaryPage = ({history, match}) => {
     lastName: ""
   });
   
-
+  // Récupération des rendez-vous
   const fetchDiaries = async () => {
     try {
         const datas =  await diaryAPI.findAll();
         var tableau = [];
-
+        // Boucle afin de restructurer les donnez en fonction de l'api
         for(let data of datas){
-
+        
           let eventDiaries = [{
             id: data.id,
             title: data.clients.lastName + " " + data.clients.firstName + " : " + data.clients.note, // a property!
@@ -64,7 +64,7 @@ const DiaryPage = ({history, match}) => {
         toast.error("Erreur lors du chargement des rendez-vous !");
     }
   };
-
+  // Récupérations des clients 
   const fetchClients = async () => {
     try {
         const data = await clientsAPI.findAll();
@@ -74,7 +74,7 @@ const DiaryPage = ({history, match}) => {
         toast.error("Une erreur est survenue !");
     }
   };
-
+  //Récupération du rendez-vous en fonction de l'id
   const fetchDiary = async id => {
     try {
       const data = await diaryAPI.find(id);
@@ -84,22 +84,22 @@ const DiaryPage = ({history, match}) => {
       toast.error("Une erreur est survenue !");
     }
   };
-
+  //Au chargement du composant on récupère les clients
   useEffect(() => {
     fetchClients();
   }, []);
- 
+  //Au chargement du composant on récupère les rendez-vous
   useEffect(() => {
     fetchDiaries();
   }, []);
-  
+  //Changement du format de la date pour affichage
   const formatDate = (str) => moment(str).format('DD/MM/YYYY à HH:mm');
-
+  //Gérer le changement de client
   const handleChange = ({currentTarget}) => {
     const {name, value} = currentTarget;
     setDiary({ ...diary, [name]: value});
   };
-
+  //Gestion de la prise/modification de rendez-vous
   const handleDateClick =  arg => {
 
     arg.jsEvent.preventDefault();
@@ -121,12 +121,10 @@ const DiaryPage = ({history, match}) => {
       setDiary({...diary, date: arg.date, startSession: arg.date, endSession: arg.date});
     } 
   };
-  
+  //Validation du nouveau rendez-vous
   const handleModificationEvent = async event => {
     event.preventDefault();
-
     const data = idDiary;
-
     try {
         await diaryAPI.update(data.ID, diary);
         toast.success("Le rendez-vous a bien été modifié !");
@@ -134,12 +132,10 @@ const DiaryPage = ({history, match}) => {
       toast.error("Erreur lors de la modification du rendez-vous !");
     }
   };
-
+  //Gestion de l'annulation d'un rendez-vous
   const handleDeleteEvent = async event => {
     event.preventDefault();
-
     const data = idDiary;
-
     try {
       await diaryAPI.delete(data.ID);
       toast.success("Le rendez-vous a bien été annulé !");
@@ -147,23 +143,20 @@ const DiaryPage = ({history, match}) => {
       toast.error("Erreur lors de la suppression du rendez-vous !");
     }
   };
-  
+  //Gestion du click sur un rendez-vous
   const handleEventClick = arg => {
     setClicking(true);
     arg.jsEvent.preventDefault();
     setIdDiary({...idDiary, ID: arg.event.id});
     fetchDiary(arg.event.id);
-
     var diaryInfo = document.getElementById("diary-info");
     var modal2 = document.getElementById("modal2");
     modal2.style.display = "block";
-
     diaryInfo.innerHTML = "Le " + formatDate(arg.dateStr) + "H";
   };
-
+  //Gestion de la création d'un rendez-vous
   const handleSubmit = async event => {
     event.preventDefault();
-
     try {
       await diaryAPI.create(diary);
         toast.success("Le rendez-vous a bien été enregistrée !");
@@ -171,43 +164,37 @@ const DiaryPage = ({history, match}) => {
       toast.error("Erreur lors de l'ajout du rendez-vous !");
     }
   };
-
+  //Fermer la modal
   const closeModal = (event) => {
     event.preventDefault();
-
       var closeModal = document.getElementById("modal");
       var diaryInfo = document.getElementById("info");
       diaryInfo.innerHTML= "";
       closeModal.style.display = "none";
-
       setClicking(false);
   };
-
+  //fermer la modal2
   const closeModal2 = (event) => {
     event.preventDefault();
-
       var closeModal2 = document.getElementById("modal2");
       var subclient = document.getElementById("diary-info");
       subclient.innerHTML= "";
       closeModal2.style.display = "none";
-      
       setClicking(false);
   };
-
+  //Fermer la modal3
   const closeModal3 = (event) => {
     event.preventDefault();
-
       var closeModal2 = document.getElementById("modal3");
       var dateModified = document.getElementById("date-modified");
       dateModified.innerHTML= "";
       closeModal2.style.display = "none";
-
       setClicking(false);
   };
-
+  //Gestion de la modification d'un rendez-vous 
+  //(transition entre le rdv à changer et la nouvelle tranche horaire)
   const handleModification = (event) => {
     event.preventDefault();
-    
       const data = idDiary;
       fetchDiary(data.ID);
       setModifing(true);
@@ -215,39 +202,28 @@ const DiaryPage = ({history, match}) => {
       modal2.style.display= "none";
       toast.info("Cliquez sur la tranche horaire du prochain rendez-vous pour le modifier.");
   };
-
+  //Retourner sur l'agenda
   const backAgenda = () => {
     history.go("/diary");
   };
-
+  //Gestion de la popup d'un rendez-vous
   const handleHover = arg => { 
-    
-    if(modifing) {
-
-    } else {
-    
+    if(!modifing){
     arg.jsEvent.preventDefault();
     var showPop = document.createElement("DIV");
     var att = document.createAttribute("id");
     att.value = "popover635692";
     showPop.setAttributeNode(att);
-    
     showPop.innerHTML = arg.event.title;
-
     arg.el.append(showPop);    
     }
   };
-
+  //Gestion de la fin de survole de la souris
   const handleHoverEnd = arg => {
-
-    if (clicking) {
-
-    } else {
-
+    if (!clicking){
       arg.jsEvent.preventDefault();
       var endPop = document.getElementById("popover635692");
-
-    arg.el.removeChild(endPop);
+      arg.el.removeChild(endPop);
     }
   };
    

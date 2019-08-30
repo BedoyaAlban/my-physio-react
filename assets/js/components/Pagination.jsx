@@ -1,7 +1,7 @@
 import React from 'react';
-
+// Composant Pagination
 const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
-
+    // Permet d'obtenir un nombre sans virgule
     const pagesCount = Math.ceil(length / itemsPerPage);
     const pages = [];
 

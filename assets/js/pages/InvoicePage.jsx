@@ -26,7 +26,7 @@ const InvoicePage = ({ history, match }) => {
     });
 
     const [loading, setLoading] = useState(true);
-
+    //Récupération des clients
     const fetchClients = async () => {
         try {
             const data = await clientsAPI.findAll();
@@ -38,7 +38,7 @@ const InvoicePage = ({ history, match }) => {
             history.replace("/invoices");
         }
     };
-
+    //Récupération d'une facture en fonction de l'id
     const fetchInvoice = async id => {
         try { 
             const { amount, status, client } = await invoicesAPI.find(id);
@@ -49,27 +49,26 @@ const InvoicePage = ({ history, match }) => {
             history.replace("/invoices");
         }
     };
-    
+    //Au chargement du composant on récupère les clients
     useEffect(() => {
         fetchClients();
     }, []);
-    
+    //Au chargement du composant si on modifie une facture
+    //On récupère la facture en question
     useEffect(() => {
         if (id !== "new") {
             fetchInvoice(id);
             setEditing(true);
         }
     }, [id]);
-
+    //Gestion du changement dans l'input
     const handleChange = ({currentTarget}) => {
         const {name, value} = currentTarget;
         setInvoice({ ...invoice, [name]: value});
     };
-
+    //Gestion de l'enregistrement/modification d'une facture
     const handleSubmit = async event => {
-        
         event.preventDefault();
-
         try {
             if(editing) {
                 await invoicesAPI.update(id, invoice);
@@ -81,7 +80,6 @@ const InvoicePage = ({ history, match }) => {
             }
         } catch ({ response }) {
             const { violations } = response.data;
-
             if (violations) {
                 const apiErrors = {};
                 violations.forEach(({ propertyPath, message }) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
-
+// Composant TableLoader
 const TableRow = props => {
   const random = Math.random() * (1 - 0.7) + 0.7
   return (

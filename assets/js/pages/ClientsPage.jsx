@@ -83,12 +83,12 @@ const ClientsPage = props => {
         itemsPerPage
     );
 
-
+    // Affichage Pop-up
     const popover = () => {
         var popover = document.getElementById("popover226303");
         popover.style.display = "block";
     };
-
+    // Cache la pop-up
     const hidePopover = () => {
         var popover = document.getElementById("popover226303");
         popover.style.display = "none";
@@ -113,7 +113,7 @@ const ClientsPage = props => {
 
             <table className="table table-hover" id="table-responsive-clients">
                 <thead>
-                    <tr>
+                    <tr className="responsive">
                         <th className="text-center">Client</th>
                         <th className="text-center">Email</th>
                         <th className="text-center">Factures</th>
@@ -121,9 +121,9 @@ const ClientsPage = props => {
                         <th></th>
                     </tr>
                 </thead>
-                {!loading && (<tbody>
+                {!loading && (<tbody className="responsive">
                     {paginatedClients.map(clients => 
-                        <tr key={clients.id}>
+                        <tr className="responsive" key={clients.id}>
                         <td className="text-center">
                             <Link to={"/clients/" + clients.id}>
                                 {clients.firstName} {clients.lastName}
@@ -146,11 +146,12 @@ const ClientsPage = props => {
                                     <div className="popover-body">Un client possédant des factures/rendez-vous ne peut pas être supprimé.</div>
                                 </div>
                         </td>
+                        <td id={((clients.invoices.length > 0 || clients.diaries.length > 0) && "com-responsive" || "hidden")}>Un client possédant des factures/rendez-vous ne peut pas être supprimé.</td>
                     </tr> )}    
                 </tbody>)}
             </table>
             {loading && <TableLoader />} 
-            <div className="row">
+            <div className="row responsive">
                     <Pagination 
                         currentPage={currentPage} 
                         itemsPerPage={itemsPerPage} 

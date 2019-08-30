@@ -3,7 +3,7 @@ import Field from '../components/fomrs/Field';
 import { Link } from "react-router-dom";
 import userAPI from "../services/usersAPI";
 import { toast } from 'react-toastify';
-
+//Composant RegisterPage
 const RegisterPage = ({history}) => {
 
     const [user, setUser] = useState({
@@ -72,7 +72,6 @@ const RegisterPage = ({history}) => {
                     value={user.firstName}
                     onChange={handleChange} 
                 />
-
                 <Field 
                     name="lastName" 
                     label="Nom de famille" 
@@ -81,7 +80,6 @@ const RegisterPage = ({history}) => {
                     value={user.lastName}
                     onChange={handleChange} 
                 />
-
                 <Field 
                     name="email" 
                     label="Adresse email" 
@@ -91,7 +89,6 @@ const RegisterPage = ({history}) => {
                     value={user.email}
                     onChange={handleChange} 
                 />
-
                 <Field 
                     name="password" 
                     label="Mot de passe" 
@@ -101,7 +98,6 @@ const RegisterPage = ({history}) => {
                     value={user.password}
                     onChange={handleChange} 
                 />
-
                 <Field 
                     name="passwordConfirm" 
                     label="Confirmation de mot de passe"
@@ -111,7 +107,6 @@ const RegisterPage = ({history}) => {
                     value={user.passwordConfirm}
                     onChange={handleChange} 
                 />
-
                 <div className="form-group">
                     <button type="submit" className="btn btn-success">Je m'inscris</button>
                     <Link to="/login" className="btn btn-link">J'ai déjà un compte</Link>

@@ -4,7 +4,7 @@ import InvoicesAPI from "../services/invoicesAPI";
 import {Pie, Bar, HorizontalBar} from 'react-chartjs-2';
 import '../../css/homepage.css';
 
-
+//Composant HomePage
 const HomePage = (props) => {
 
     const [invoiced, setInvoiced] = useState([]);
@@ -28,14 +28,14 @@ const HomePage = (props) => {
     const [lastYear, setLastYear] = useState([]);
     const [twoYearsAgo, setTwoYearsAgo] = useState([]);
     
-
+    //Récupération des factures
     const fetchInvoices = async () => {
         try {
             const datas =  await InvoicesAPI.findAll();
             var fillInvoiced = [];
             var fillPaid = [];
             var fillCanceled = [];
-
+            //Boucle pour récupérer le statut des factures
             for (let data of datas ) {
                 if (data.status === "INVOICED") {
                     let invoiceInvoiced = data.status;
@@ -66,7 +66,7 @@ const HomePage = (props) => {
             var fillOctober = [];
             var fillNovember = [];
             var fillDecember = [];
-
+            //Boucle pour récupérer le montant des factures/mois
             for (let data of datas) {
                 let date = new Date(data.sentAt);
                 let amount = data.amount;
@@ -137,7 +137,7 @@ const HomePage = (props) => {
             var fillActualYear = [];
             var fillYearLess1 = [];
             var fillYearLess2 = [];
-
+            //Boucle pour récupérer le montant/an
             for (let data of datas) {
                 let date = new Date(data.sentAt);
                 let amount = data.amount;
@@ -163,16 +163,16 @@ const HomePage = (props) => {
             
         }
     };
-
+    //Arrondir le montant total des factures
     const sum = (props) => {
        var tot = props.reduce((a, b)=> a + b,0);
        return Math.round(tot);
     };
-
+    //Au chargement on récupère les factures
     useEffect(() => {
         fetchInvoices();
     }, []);
-
+    //Utilisation du composant graphique
     const data = {
         labels: [
             'Payée',
@@ -193,7 +193,7 @@ const HomePage = (props) => {
             ]
         }]
     };
-
+    //Utilisation du composant graphique
     const bar = {
         labels: ['Janvier', 
                 'Février', 
@@ -232,12 +232,9 @@ const HomePage = (props) => {
       };
 
       const yearActual = new Date().getFullYear();
-
       const yearLess1 = yearActual - 1;
-
       const yearLess2 = yearActual - 2;
-
-
+      //Utilisation du composant graphique
       const barHorizontal = {
         labels: [(yearLess2.toString()), (yearLess1.toString()), (yearActual.toString())],
         datasets: [
@@ -253,13 +250,8 @@ const HomePage = (props) => {
         ]
       };
 
-      
-
-
-
     return ( 
-    <>
-        
+    <> 
         <div id="doughnut-invoices">
             <h2>Factures</h2>
             <Pie data={data} />
@@ -272,7 +264,6 @@ const HomePage = (props) => {
             <h2>Chiffre d'Affaire/Année</h2>
             <HorizontalBar data={barHorizontal}/>
         </div>
-
     </>
   );
 }

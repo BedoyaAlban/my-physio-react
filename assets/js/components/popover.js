@@ -1,6 +1,5 @@
 import React from 'react';
-
-
+// Composant Pop
 function pop() {
 
     return (
@@ -13,8 +12,7 @@ function pop() {
                 <p className="card-text" id="note-event"></p>
             </div>
         </div>
-    )
-    
+    ) 
 }
 
 export default { pop };

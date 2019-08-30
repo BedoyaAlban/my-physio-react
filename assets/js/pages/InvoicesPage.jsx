@@ -54,7 +54,6 @@ const InvoicesPage = (props) => {
         setSearch(currentTarget.value);
         setCurrentPage(1);
     };
-
     //La gestion de la suppression
     const handleDelete = async id => {
         const originalInvoices = [...invoices];
@@ -69,10 +68,8 @@ const InvoicesPage = (props) => {
             setInvoices(originalInvoices);
         }
     };
-
     //Gestion du format de date
     const formatDate = (str) => moment(str).format('DD/MM/YYYY');
-
     //Gestion de la racherche
     const filteredInvoices = invoices.filter(
         i => 
@@ -83,20 +80,18 @@ const InvoicesPage = (props) => {
             formatDate(i.sentAt).toString().includes(search) 
             
     );
-    
     //Pagination des données
     const paginatedInvoices = Pagination.getData(
         filteredInvoices, 
         currentPage, 
         itemsPerPage
     );
-
-    
+    //Affichage de la popup
     const popover = () => {
         var popover = document.getElementById("popover226302");
         popover.style.display = "block";
     };
-
+    //Masquer la popup
     const hidePopover = () => {
         var popover = document.getElementById("popover226302");
         popover.style.display = "none";
@@ -109,7 +104,6 @@ const InvoicesPage = (props) => {
             <Link className="btn btn-primary" to="/factures/new">Créer une facture</Link>
         </div>
        
-
         <div className="form-group">
                 <input 
                     type="text" 
@@ -121,20 +115,20 @@ const InvoicesPage = (props) => {
         </div>
         <table className="table table-hover">
             <thead>
-                <tr>
-                    <th>Numéro</th>
-                    <th>Client</th>
+                <tr className="responsive">
+                    <th className="text-center">Numéro</th>
+                    <th className="text-center">Client</th>
                     <th className="text-center">Date d'envoi</th>
                     <th className="text-center">Statut</th>
                     <th className="text-center">Montant</th>
                     <th></th>
                 </tr>
             </thead>
-            {!loading && (<tbody>
+            {!loading && (<tbody className="responsive">
             {paginatedInvoices.map(invoice => 
-                <tr key={invoice.id}>
-                    <td>{invoice.chrono}</td>
-                    <td>
+                <tr className="responsive" key={invoice.id}>
+                    <td className="text-center">{invoice.chrono}</td>
+                    <td className="text-center">
                         <Link to={"/clients/" + invoice.client.id}>
                             {invoice.client.firstName} {invoice.client.lastName}
                         </Link>
@@ -162,7 +156,7 @@ const InvoicesPage = (props) => {
             </tbody>)}
         </table>
         {loading && <TableLoader />}
-        <div className="row">
+        <div className="row responsive">
             <Pagination 
                 currentPage={currentPage} 
                 itemsPerPage={itemsPerPage} 

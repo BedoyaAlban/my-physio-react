@@ -44,3 +44,67 @@ td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-ri
 #hidden {
     display: none;
 }
+
+#com-responsive {
+    display:none;
+}
+
+@media(max-width:330px) {
+    #com-responsive{
+        display:block;
+    }
+    div#popover468793.popover.fade.show.bs-popover-right {
+        top: -99px;
+        max-width: 90px;
+    }
+    td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-right {
+        opacity: 0;
+    }
+    table.table.table-hover,
+    tbody.responsive,
+    tr.responsive,
+    td.text-center {
+        display: block;
+        width: auto!important;
+    }
+    thead {
+        font-size: 0.5rem;
+    }
+    div.row.responsive{
+        display: block;
+        margin: auto;
+        width: 50%;
+    }
+    div#pagination {
+        width: 100%;
+    }
+    div#export-invoices {
+        width: 100%;
+    }
+    button.btn.btn-primary#export {
+        right: unset;
+        left: 0;
+    }
+
+    div#popover226303.popover.fade.show.bs-popover-top {
+        right: 16px;
+        top: -93px;
+        max-width: 123px;
+    }
+    div.arrow#popover-export {
+        left: 45px;
+    }
+    div#pagination {
+        width: 100%;
+    }
+    div#export-clients {
+        width: 100%;
+    }
+    button#button-export-clients.btn.btn-primary{
+        right: unset;
+        left:0;
+    }
+    div#popover-export-clients.arrow {
+        left: 46px;
+    }
+}

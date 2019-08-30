@@ -3,7 +3,7 @@ import { ExcelExport, ExcelExportColumn } from '@progress/kendo-react-excel-expo
 import invoicesAPI from '../services/invoicesAPI';
 import moment from "moment";
 
-
+// Composant ExportInvoices
 const FormatDate = (str) => moment(str).format('DD/MM/YYYY');
 
 class ExportInvoices extends React.Component {

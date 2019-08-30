@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ExcelExport, ExcelExportColumn } from '@progress/kendo-react-excel-export';
 import ClientsAPI from '../services/clientsAPI';
 
-
+//Composant ExportClients
 
 class ExportClients extends React.Component {
     _exporter;
@@ -35,14 +35,10 @@ class ExportClients extends React.Component {
         this.setState({ data: fillData});
     }
 
-
-
     render() {
         return (
-
             <div>
                 <button className="btn btn-primary" id="button-export-clients" onClick={this.export}>Export to Excel</button>
-                
                 <ExcelExport
                     data={this.state.data}
                     fileName="Client.xlsx"

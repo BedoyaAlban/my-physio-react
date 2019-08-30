@@ -4,7 +4,7 @@ import AuthAPI from '../services/authAPI';
 import Field from '../components/fomrs/Field';
 import { toast } from 'react-toastify';
 
-
+//Composant LoginPage
 const LoginPage = ({ history }) => {
 
     const { setIsAuthenticated } = useContext(AuthContext);
@@ -22,11 +22,9 @@ const LoginPage = ({ history }) => {
 
         setCredentials({...credentials, [name]: value});
     };
-
     //Gestion du submit
     const handleSubmit = async event => {
         event.preventDefault();
-
         try {
             await AuthAPI.authenticate(credentials);
             setError("");
