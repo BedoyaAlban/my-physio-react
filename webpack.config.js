@@ -64,7 +64,7 @@ Encore
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
-
+    
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
     //.enableIntegrityHashes(Encore.isProduction())
@@ -75,6 +75,11 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     .enableReactPreset();
     //.addEntry('admin', './assets/js/admin.js')
+
+    // Using Encore.configureLoaderRule()
+    Encore.configureLoaderRule('images', loaderRule => {
+        loaderRule.test = /\.(png|jpg|jpeg|gif|ico|svg|webp)$/
+    });
 
     Encore.configureDefinePlugin(options => {
         options["process.env"].API_URL = process.env.API_URL;
