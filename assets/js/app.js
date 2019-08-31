@@ -22,6 +22,9 @@ import Footer from './components/Footer';
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/bootstrap.css');
 require('../css/app.css');
+require('../images/agenda.png');
+require('../images/clients.png');
+require('../images/factures.png');
 
 AuthAPI.setup();
 

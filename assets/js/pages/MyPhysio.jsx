@@ -1,11 +1,10 @@
 import React from 'react';
-
+const Agenda = require('../../images/agenda.png');
+const Clients = require('../../images/clients.png');
+const Factures = require('../../images/factures.png');
 
 //Composant MyPhysio
 const MyPhysio = (props) => {
-    const Agenda = require('../../images/agenda.png');
-    const Clients = require('../../images/clients.png');
-    const Factures = require('../../images/factures.png');
 
     return ( 
      <>  
