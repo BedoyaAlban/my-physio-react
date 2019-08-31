@@ -1,7 +1,7 @@
 import React from 'react';
-const Agenda = require('../../images/agenda.png');
-const Clients = require('../../images/clients.png');
-const Factures = require('../../images/factures.png');
+const Agenda = require('../../css/agenda.png');
+const Clients = require('../../css/clients.png');
+const Factures = require('../../css/factures.png');
 
 //Composant MyPhysio
 const MyPhysio = (props) => {
