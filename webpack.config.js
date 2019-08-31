@@ -77,8 +77,8 @@ Encore
     //.addEntry('admin', './assets/js/admin.js')
 
     // Using Encore.configureLoaderRule()
-    Encore.configureLoaderRule('images', loaderRule => {
-        loaderRule.test = /\.(png|jpg|jpeg|gif|ico|svg|webp)$/
+    Encore.configureLoaderRule('css', loaderRule => {
+        loaderRule.test = /\.(png|jpg|jpeg|gif|ico|svg|webp|css|scss)$/
     });
 
     Encore.configureDefinePlugin(options => {
