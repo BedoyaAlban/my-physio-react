@@ -76,10 +76,6 @@ Encore
     .enableReactPreset();
     //.addEntry('admin', './assets/js/admin.js')
 
-    // Using Encore.configureLoaderRule()
-    Encore.configureLoaderRule('css', loaderRule => {
-        loaderRule.test = /\.(png|jpg|jpeg|gif|ico|svg|webp|css|scss)$/
-    });
 
     Encore.configureDefinePlugin(options => {
         options["process.env"].API_URL = process.env.API_URL;
