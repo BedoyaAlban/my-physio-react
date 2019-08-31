@@ -12,7 +12,7 @@ const Navbar = ({ history }) => {
         AuthAPI.logout();
         setIsAuthenticated(false);
         toast.info("Vous êtes désormais déconnecté!");
-        history.push("/login");
+        history.push("/");
     };
     // Fonction permattant d'afficher le menu en responsive
     const displayMenu = () => {
@@ -31,7 +31,7 @@ const Navbar = ({ history }) => {
 
     return ( 
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary" id="nav-responsive">
-        <NavLink className="navbar-brand" to="/myphysio">
+        <NavLink className="navbar-brand" to="/">
             My-Physio
         </NavLink>
         <button onClick={() => displayMenu()} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">

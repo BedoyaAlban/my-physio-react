@@ -114,7 +114,7 @@ const InvoicesPage = (props) => {
                 />
         </div>
         <table className="table table-hover">
-            <thead>
+            <thead className="responsive">
                 <tr className="responsive">
                     <th className="text-center">Numéro</th>
                     <th className="text-center">Client</th>

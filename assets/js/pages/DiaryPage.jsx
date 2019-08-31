@@ -73,7 +73,11 @@ const DiaryPage = ({history, match}) => {
         setClient(data);
         if (!diary.clients) setDiary({...diary, clients: data[0].id });
     } catch (error) {
-        toast.error("Une erreur est survenue au chargement des clients!");
+      if (diaries.length === 0) {
+        toast.warn("Créer d'abord un client pour pouvoir prendre un rendez-vous!")
+      } else {
+      toast.error("Une erreur est survenue au chargement des clients!");
+      }
     }
   };
   //Récupération du rendez-vous en fonction de l'id
@@ -83,15 +87,14 @@ const DiaryPage = ({history, match}) => {
       setDiary({...diary, clients: data.clients.id});
       setName({...name, firstName: data.clients.firstName, lastName: data.clients.lastName});
     } catch (error) {
-      toast.error("Une erreur est survenue au chargement des rendez-vous!");
+        toast.error("Une erreur est survenue au chargement des rendez-vous!");
     }
   };
   //Au chargement du composant on récupère les rendez-vous
   useEffect(() => {
     fetchDiaries();
-    if(diaries.length > zero){
-      fetchClients();
-    }
+    fetchClients();
+    
   }, []);
   //Changement du format de la date pour affichage
   const formatDate = (str) => moment(str).format('DD/MM/YYYY à HH:mm');

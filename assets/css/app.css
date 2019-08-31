@@ -1,5 +1,26 @@
+html, body, div#app {
+    height: 100%;
+  }
+  div#app {
+    display: flex;
+    flex-direction: column;
+  }
+  main.container.pt-5 {
+    flex: 1 0 auto;
+  }
+  #sticky-footer {
+    width: 100%;
+    margin-top: 35px;
+    background-color: #4582EC !important;
+    flex-shrink: 0;
+}
+
 button.navbar-toggler {
     cursor: pointer;
+}
+
+#title{
+    padding-bottom: 45px;
 }
 
 button#close-menu {
@@ -16,6 +37,18 @@ i.fa.fa-times {
 .form-text.text-muted {
     float: right;
 }
+
+div.col-md-8.mx-auto {
+    padding-top: 30px;
+}
+
+@media(max-width:1025px){
+    button#close-menu{
+        display: none;
+    }
+}
+
+
 @media(min-width:992px) {
     #nav-responsive {
         font-size: 1.930125rem;
@@ -28,10 +61,7 @@ i.fa.fa-times {
     }
 }
 
-@media(max-width:330px) {
-    main.container.pt-5{
-        height: 384px;
-    }
+@media(max-width:575px) {
     h1 {
         font-size: 1.6575rem;
     }
@@ -47,4 +77,8 @@ i.fa.fa-times {
     #button-disconnect {
         font-size: 1.8rem;
     }
+    table.table-bordered>thead {
+        font-size: 0.6em;
+    }
 }
+

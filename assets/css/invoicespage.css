@@ -35,7 +35,7 @@ button#export.btn.btn-primary:hover div#popover226302.popover.fade.show.bs-popov
 }
 
 
-@media(max-width:330px) {
+@media(max-width:575px) {
     div#popover226302.popover.fade.show.bs-popover-top {
         right: 16px;
         top: -93px;

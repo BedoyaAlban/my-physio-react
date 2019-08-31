@@ -1,5 +1,5 @@
 #arrow-client {
-    top: 4px;
+    top: 116px;
 }
 
 div#export-clients {
@@ -32,25 +32,65 @@ td#td-button.text-center {
 
 div#popover468793.popover.fade.show.bs-popover-right {
     opacity: 0;
-    top: 6px;
-    left: 120px;
-    max-width: 90px;
+    max-width: 145px;
+    top: -107px;
+    left: 115px;
 }
 
 td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-right {
     opacity: 1;
 }
 
-#hidden {
+.hidden {
     display: none;
 }
 
-#com-responsive {
+.com-responsive {
     display:none;
 }
+.thead-responsive {
+    display: none;
+}
 
-@media(max-width:330px) {
-    #com-responsive{
+
+@media(max-width:1030px) {
+    div#popover468793.popover.fade.show.bs-popover-right {
+        display:none;
+    }
+    .com-responsive{
+        display:block;
+    }
+    .thead-responsive{
+        display: block;
+    }
+    .table th, .table td{
+        vertical-align: middle !important;
+    }
+    td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-right {
+        opacity: 0;
+    }
+}
+
+@media(max-width:800px) {
+    div#popover468793.popover.fade.show.bs-popover-right {
+        display:none;
+    }
+    .com-responsive{
+        display:block;
+    }
+    .thead-responsive{
+        display: block;
+    }
+    .table th, .table td{
+        vertical-align: middle !important;
+    }
+    td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-right {
+        opacity: 0;
+    }
+}
+
+@media(max-width:575px) {
+    .com-responsive{
         display:block;
     }
     div#popover468793.popover.fade.show.bs-popover-right {
@@ -63,12 +103,14 @@ td#td-button.text-center:hover div#popover468793.popover.fade.show.bs-popover-ri
     table.table.table-hover,
     tbody.responsive,
     tr.responsive,
-    td.text-center {
+    td.text-center,
+    thead.responsive,
+    th.text-center {
         display: block;
         width: auto!important;
     }
-    thead {
-        font-size: 0.5rem;
+    thead.responsive {
+        font-size: 2.5rem;
     }
     div.row.responsive{
         display: block;

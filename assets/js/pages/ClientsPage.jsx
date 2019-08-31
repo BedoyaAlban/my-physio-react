@@ -110,15 +110,15 @@ const ClientsPage = props => {
                     placeholder="Rechercher par Client, Email, Montant Total"
                 />
             </div>
-
             <table className="table table-hover" id="table-responsive-clients">
-                <thead>
+                <thead className="responsive">
                     <tr className="responsive">
                         <th className="text-center">Client</th>
                         <th className="text-center">Email</th>
                         <th className="text-center">Factures</th>
                         <th className="text-center">Montant total</th>
                         <th></th>
+                        <th classname="thead-responsive"></th>
                     </tr>
                 </thead>
                 {!loading && (<tbody className="responsive">
@@ -146,7 +146,7 @@ const ClientsPage = props => {
                                     <div className="popover-body">Un client possédant des factures/rendez-vous ne peut pas être supprimé.</div>
                                 </div>
                         </td>
-                        <td id={((clients.invoices.length > 0 || clients.diaries.length > 0) && "com-responsive" || "hidden")}>Un client possédant des factures/rendez-vous ne peut pas être supprimé.</td>
+                        <td className={((clients.invoices.length > 0 || clients.diaries.length > 0) && "com-responsive" || "hidden")}>Un client possédant des factures/rendez-vous ne peut pas être supprimé.</td>
                     </tr> )}    
                 </tbody>)}
             </table>

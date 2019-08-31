@@ -16,6 +16,8 @@ import RegisterPage from './pages/RegisterPage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPhysio from './pages/MyPhysio';
+import Footer from './components/Footer';
+
 
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/bootstrap.css');
@@ -51,6 +53,7 @@ const App = () => {
                         </Switch>
                     </main>
                 </HashRouter>
+                <Footer />
                 <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
             </AuthContext.Provider>);
 };

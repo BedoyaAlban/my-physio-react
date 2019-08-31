@@ -101,7 +101,7 @@ td:hover {
     cursor: pointer;
 }
 
-@media(max-width:330px) {
+@media(max-width:575px) {
     div.fc-center {
         display: none;
     }

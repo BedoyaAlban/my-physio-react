@@ -1,14 +1,42 @@
 import React from 'react';
+import Agenda from '../../images/agenda.png';
+import Clients from '../../images/clients.png';
+import Factures from '../../images/factures.png';
 //Composant MyPhysio
 const MyPhysio = (props) => {
     return ( 
      <>  
-        <h1>My-Physio</h1>
-
-        <h2>Bienvenue sur My-Physio!</h2>
-
-        <p>Besoin d'un agenda ? d'un endroit où vous pouvez gérer vos factures ? Retrouver un client ?</p>
-        <p>Il suffit juste de vous inscrire si vous ne l'êtes pas déjà!</p>
+        <div className="container">
+            <h1 id="title" className="text-center">Bienvenue sur My-Physio!</h1>
+            <div className="row">
+                <div className="col-lg-4">
+                    <div className="card mb-5 mb-lg-0">
+                        <h3>Agenda</h3>
+                        <img className="img-fluid img-thumbnail" src={Agenda} alt="agenda"/>
+                    </div>
+                </div>
+                <div className="col-lg-4">
+                    <div className="card mb-5 mb-lg-0">
+                        <h3>Clients</h3>
+                        <img className="img-fluid img-thumbnail" src={Clients} alt="liste des clients"/>
+                    </div>
+                </div>
+                <div className="col-lg-4">
+                    <div className="card mb-5 mb-lg-0">
+                        <h3>Factures</h3>
+                        <img className="img-fluid img-thumbnail" src={Factures} alt="liste des factures"/>
+                    </div>
+                </div>
+                <div className="col-md-8 mx-auto">
+                    <p>My-Physio, l'application qui va simplifier votre gestion!</p>
+                    <p>Besoin d'un agenda ? d'un endroit où vous pouvez gérer vos factures ? Retrouver un client ?</p>
+                    <p className="text-primary">Rien de plus simple il vous suffit de créer un compte et de vous laisser guider!</p>
+                    <p className="mb-0">
+                    Vous n'êtes pas encore inscrit ? Rejoignez-nous! 
+                    </p>
+                </div>
+            </div>
+        </div>
     </>
     );
 }
