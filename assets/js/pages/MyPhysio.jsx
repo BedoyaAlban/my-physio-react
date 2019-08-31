@@ -1,9 +1,12 @@
 import React from 'react';
-import Agenda from '../assets/images/agenda.png';
-import Clients from '../assets/images/clients.png';
-import Factures from '../assets/images/factures.png';
+
+
 //Composant MyPhysio
 const MyPhysio = (props) => {
+    const Agenda = require('../../images/agenda.png');
+    const Clients = require('../../images/clients.png');
+    const Factures = require('../../images/factures.png');
+
     return ( 
      <>  
         <div className="container">
