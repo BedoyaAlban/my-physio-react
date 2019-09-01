@@ -1,20 +1,36 @@
 html, body, div#app {
     height: 100%;
-  }
-  div#app {
+}
+
+div#app {
     display: flex;
     flex-direction: column;
-  }
-  main.container.pt-5 {
+}
+
+main.container.pt-5 {
     flex: 1 0 auto;
-  }
-  #sticky-footer {
+}
+
+#sticky-footer {
     width: 100%;
     margin-top: 35px;
     background-color: #4582EC !important;
     flex-shrink: 0;
 }
 
+i {
+    padding-bottom: 10px;
+}
+
+i.far.fa-calendar-alt.fa-9x{
+    color: #4582EC;
+}
+i.far.fa-list-alt.fa-9x {
+    color: #02B875;
+}
+i.fas.fa-list-ul.fa-9x {
+    color: #17a2b8;
+}
 button.navbar-toggler {
     cursor: pointer;
 }

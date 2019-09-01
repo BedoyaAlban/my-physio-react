@@ -12,19 +12,19 @@ const MyPhysio = (props) => {
                 <div className="col-lg-4">
                     <div className="card mb-5 mb-lg-0">
                         <h3>Agenda</h3>
-                        <img className="img-fluid img-thumbnail" src="" alt="agenda"/>
+                        <i className="far fa-calendar-alt fa-9x"></i>
                     </div>
                 </div>
                 <div className="col-lg-4">
                     <div className="card mb-5 mb-lg-0">
                         <h3>Clients</h3>
-                        <img className="img-fluid img-thumbnail" src="" alt="liste des clients"/>
+                        <i className="far fa-list-alt fa-9x"></i>
                     </div>
                 </div>
                 <div className="col-lg-4">
                     <div className="card mb-5 mb-lg-0">
                         <h3>Factures</h3>
-                        <img className="img-fluid img-thumbnail" src="" alt="liste des factures"/>
+                        <i className="fas fa-list-ul fa-9x"></i>
                     </div>
                 </div>
                 <div className="col-md-8 mx-auto">
