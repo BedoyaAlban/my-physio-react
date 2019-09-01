@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+
 //Composant MyPhysio
 const MyPhysio = (props) => {
 
@@ -13,6 +14,7 @@ const MyPhysio = (props) => {
                     <div className="card mb-5 mb-lg-0">
                         <h3>Agenda</h3>
                         <i className="far fa-calendar-alt fa-9x"></i>
+                        <img className="img-fluid img-thumbnail" src={require('../../images/clients.05d8f22b.png')} alt=""></img>
                     </div>
                 </div>
                 <div className="col-lg-4">
