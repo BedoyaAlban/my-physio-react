@@ -14,7 +14,6 @@ const MyPhysio = (props) => {
                     <div className="card mb-5 mb-lg-0">
                         <h3>Agenda</h3>
                         <i className="far fa-calendar-alt fa-9x"></i>
-                        <img className="img-fluid img-thumbnail" src={require('/assets/images/clients.png')} alt=""></img>
                     </div>
                 </div>
                 <div className="col-lg-4">
