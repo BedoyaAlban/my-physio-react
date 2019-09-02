@@ -108,7 +108,7 @@ const InvoicePage = ({ history, match }) => {
                 />
                 <Select 
                     name="client" 
-                    label="°Client" 
+                    label="Client" 
                     value={invoice.client} 
                     error={errors.client} 
                     onChange={handleChange}
@@ -121,7 +121,7 @@ const InvoicePage = ({ history, match }) => {
                 </Select>
                 <Select 
                     name="status" 
-                    label="°Statut" 
+                    label="Statut" 
                     value={invoice.status} 
                     error={errors.status} 
                     onChange={handleChange}
