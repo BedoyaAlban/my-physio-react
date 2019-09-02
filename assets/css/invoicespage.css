@@ -30,6 +30,16 @@ div#popover226302.popover.fade.show.bs-popover-top {
     display: none;
 }
 
+form#invoice {
+    position: relative;
+}
+
+div#euro {
+    position: absolute;
+    right: -14px;
+    top: 41px;
+}
+
 button#export.btn.btn-primary:hover div#popover226302.popover.fade.show.bs-popover-top {
     opacity: 1;
 }

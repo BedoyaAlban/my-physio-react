@@ -95,19 +95,20 @@ const InvoicePage = ({ history, match }) => {
         <>
             {editing && <h1>Modification d'une facture</h1> || <h1>Création d'une facture</h1>}
             {loading && <FormLoader />}
-            {!loading && (<form onSubmit={handleSubmit}>
+            {!loading && (<form id="invoice" onSubmit={handleSubmit}>
+                <div id="euro">€</div>
                 <Field 
                     name="amount" 
                     type="number" 
                     placeholder="Montant de la facture" 
-                    label="Montant" 
+                    label="°Montant" 
                     onChange={handleChange} 
                     value={invoice.amount}
                     error={errors.amount} 
                 />
                 <Select 
                     name="client" 
-                    label="client" 
+                    label="°Client" 
                     value={invoice.client} 
                     error={errors.client} 
                     onChange={handleChange}
@@ -120,7 +121,7 @@ const InvoicePage = ({ history, match }) => {
                 </Select>
                 <Select 
                     name="status" 
-                    label="Satut" 
+                    label="°Statut" 
                     value={invoice.status} 
                     error={errors.status} 
                     onChange={handleChange}

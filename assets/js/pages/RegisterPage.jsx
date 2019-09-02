@@ -66,7 +66,7 @@ const RegisterPage = ({history}) => {
             <form onSubmit={handleSubmit}>
                 <Field 
                     name="firstName" 
-                    label="Prénom" 
+                    label="°Prénom" 
                     placeholder="Votre Prénom" 
                     error={errors.firstName} 
                     value={user.firstName}
@@ -74,7 +74,7 @@ const RegisterPage = ({history}) => {
                 />
                 <Field 
                     name="lastName" 
-                    label="Nom de famille" 
+                    label="°Nom de famille" 
                     placeholder="Votre nom de famille" 
                     error={errors.lastName} 
                     value={user.lastName}
@@ -82,7 +82,7 @@ const RegisterPage = ({history}) => {
                 />
                 <Field 
                     name="email" 
-                    label="Adresse email" 
+                    label="°Adresse email" 
                     type="email"
                     placeholder="Votre adresse email" 
                     error={errors.email} 
@@ -91,7 +91,7 @@ const RegisterPage = ({history}) => {
                 />
                 <Field 
                     name="password" 
-                    label="Mot de passe" 
+                    label="°Mot de passe" 
                     type="password"
                     placeholder="Votre mot de passe" 
                     error={errors.password} 
@@ -100,7 +100,7 @@ const RegisterPage = ({history}) => {
                 />
                 <Field 
                     name="passwordConfirm" 
-                    label="Confirmation de mot de passe"
+                    label="°Confirmation de mot de passe"
                     type="password" 
                     placeholder="Confirmez votre mot de passe" 
                     error={errors.passwordConfirm} 

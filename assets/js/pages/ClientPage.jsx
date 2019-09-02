@@ -257,7 +257,7 @@ const ClientPage = ({match, history} ) => {
                 {!loading && (<form onSubmit={handleSubmit}>
                     <Field
                         name="lastName" 
-                        label="Nom de famille" 
+                        label="°Nom de famille" 
                         placeholder="Nom de famille du client" 
                         value={client.lastName}
                         onChange={handleChange}
@@ -265,7 +265,7 @@ const ClientPage = ({match, history} ) => {
                     </Field>
                     <Field 
                         name="firstName" 
-                        label="Prénom" 
+                        label="°Prénom" 
                         placeholder="Prénom du client"
                         value={client.firstName}
                         onChange={handleChange}
@@ -273,7 +273,7 @@ const ClientPage = ({match, history} ) => {
                     />
                     <Field 
                         name="email" 
-                        label="Email" 
+                        label="°Email" 
                         placeholder="Adresse email du client" 
                         type="email"
                         value={client.email}
@@ -282,7 +282,7 @@ const ClientPage = ({match, history} ) => {
                     />
                     <Field 
                         name="numberPhone" 
-                        label="Numéro de téléphone" 
+                        label="°Numéro de téléphone" 
                         placeholder="Numéro de téléphone du client" 
                         value={client.numberPhone}
                         onChange={handleChange}
@@ -291,7 +291,7 @@ const ClientPage = ({match, history} ) => {
                     <Field
                         name="adressNumber"
                         type="number"
-                        label="Numéro de l'adresse" 
+                        label="°Numéro de l'adresse" 
                         placeholder="Numéro de l'adresse du client"  
                         value={client.adressNumber}
                         onChange={handleChangeNumber}
@@ -299,7 +299,7 @@ const ClientPage = ({match, history} ) => {
                     />
                     <Field 
                         name="adressName" 
-                        label="Nom de l'adresse" 
+                        label="°Nom de l'adresse" 
                         placeholder="Nom de l'adresse du client" 
                         value={client.adressName}
                         onChange={handleChange}
@@ -307,7 +307,7 @@ const ClientPage = ({match, history} ) => {
                     />
                     <Field 
                         name="adressCity" 
-                        label="Ville" 
+                        label="°Ville" 
                         placeholder="Nom de la ville de l'adresse du client"
                         value={client.adressCity}
                         onChange={handleChange}
@@ -315,7 +315,7 @@ const ClientPage = ({match, history} ) => {
                     />
                     <Field 
                         name="zipCode" 
-                        label="Code Postal" 
+                        label="°Code Postal" 
                         placeholder="Code postal du client" 
                         value={client.zipCode}
                         onChange={handleChange}
@@ -324,7 +324,7 @@ const ClientPage = ({match, history} ) => {
                     <Field 
                         name="securitySocialNumber"
                         type="number"  
-                        label="Numéro de sécurité sociale "
+                        label="°Numéro de sécurité sociale "
                         placeholder="Numéro de sécurité sociale du client"  
                         value={client.securitySocialNumber} 
                         onChange={handleChangeNumber}

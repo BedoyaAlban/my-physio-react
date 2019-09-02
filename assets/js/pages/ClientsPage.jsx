@@ -118,7 +118,7 @@ const ClientsPage = props => {
                         <th className="text-center">Factures</th>
                         <th className="text-center">Montant total</th>
                         <th></th>
-                        <th classname="thead-responsive"></th>
+                        <th className="thead-responsive"></th>
                     </tr>
                 </thead>
                 {!loading && (<tbody className="responsive">

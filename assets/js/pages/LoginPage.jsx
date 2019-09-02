@@ -45,7 +45,7 @@ const LoginPage = ({ history }) => {
 
         <form onSubmit={handleSubmit}>
             <Field 
-                label="Adresse email" 
+                label="°Adresse email" 
                 name="username" 
                 type="email"
                 value={credentials.username} 
@@ -54,7 +54,7 @@ const LoginPage = ({ history }) => {
                 error={error} 
             />
             <Field 
-                label="Mot de passe"
+                label="°Mot de passe"
                 name="password"
                 value={credentials.password}
                 onChange={handleChange}
