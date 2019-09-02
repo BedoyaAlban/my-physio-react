@@ -70,7 +70,7 @@ const HomePage = (props) => {
             for (let data of datas) {
                 let date = new Date(data.sentAt);
                 let amount = data.amount;
-                if (date.getFullYear() === new Date().getFullYear()) {
+                if ((date.getFullYear() === new Date().getFullYear()) && (data.status != "CANCELLED")) {
                     if (date.getMonth() === 0) {
                     let januaryAmount = amount;
                     fillJanuary.push(januaryAmount);
@@ -141,15 +141,16 @@ const HomePage = (props) => {
             for (let data of datas) {
                 let date = new Date(data.sentAt);
                 let amount = data.amount;
-                if (date.getFullYear() === yearActual) {
+                console.log(data);
+                if ((date.getFullYear() === yearActual) && (data.status != "CANCELLED")) {
                     let actualYearAmount = amount;
                     fillActualYear.push(actualYearAmount);
                 }
-                if (date.getFullYear() === yearLess1) {
+                if ((date.getFullYear() === yearLess1) && (data.status != "CANCELLED")) {
                     let yearLess1Amount = amount;
                     fillYearLess1.push(yearLess1Amount);
                 }
-                if (date.getFullYear() === yearLess2){
+                if ((date.getFullYear() === yearLess2) && (data.status != "CANCELLED")){
                     let yearLess2Amount = amount;
                     fillYearLess2.push(yearLess2Amount);
                 }
@@ -209,7 +210,7 @@ const HomePage = (props) => {
                 'Décembre'],
         datasets: [
           {
-            label: 'My First dataset',
+            label: 'CA/Mois',
             backgroundColor: 'rgba(255,99,132,0.2)',
             borderColor: 'rgba(255,99,132,1)',
             borderWidth: 1,
@@ -239,7 +240,7 @@ const HomePage = (props) => {
         labels: [(yearLess2.toString()), (yearLess1.toString()), (yearActual.toString())],
         datasets: [
           {
-            label: 'My First dataset',
+            label: 'CA/Année',
             backgroundColor: 'rgba(255,99,132,0.2)',
             borderColor: 'rgba(255,99,132,1)',
             borderWidth: 1,

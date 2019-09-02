@@ -126,7 +126,7 @@ const InvoicePage = ({ history, match }) => {
                     error={errors.status} 
                     onChange={handleChange}
                 >
-                    <option value="SENT">Facturée</option>
+                    <option value="INVOICED">Facturée</option>
                     <option value="PAID">Payée</option>
                     <option value="CANCELLED">Annulée</option>
                 </Select>

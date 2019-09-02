@@ -137,7 +137,7 @@ class Clients
     public function getTotalAmount(): float {
         return array_reduce($this->invoices->toArray(), function($total, $invoice) {
             return $total + $invoice->getAmount();
-        }, 1);
+        }, 0);
     }
     
     /**

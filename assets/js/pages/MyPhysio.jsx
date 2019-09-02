@@ -1,5 +1,7 @@
 import React from 'react';
-
+import Agenda from '../../images/agenda.png';
+import Clients from '../../images/clients.png';
+import Factures from '../../images/factures.png';
 //Composant MyPhysio
 const MyPhysio = (props) => {
 
